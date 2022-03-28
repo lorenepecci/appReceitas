@@ -1,10 +1,13 @@
 import React from 'react';
+import SearchBar from '../components/SearchBar';
 import FooterPages from '../Components/FooterPages';
 
-const Foods = () => (
-  <div>
-    <FooterPages />
-  </div>
-);
-
-export default Foods;
+export default function Foods() {
+  return (
+    <div>
+      Foods
+      <SearchBar foodOrDrink="food" />
+      <FooterPages />
+    </div>
+  );
+}

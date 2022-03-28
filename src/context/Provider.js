@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import Context from './Context';
 
 const Provider = ({ children }) => {
-  const contextData = {};
+  const [searchState, setSearchState] = useState({
+    searchInput: '',
+    ingredient: false,
+    name: false,
+    firstLetter: false,
+  });
+  const contextData = { searchState, setSearchState };
   return (
-    <Context.Provider value={ { contextData } }>
+    <Context.Provider value={ contextData }>
       { children }
     </Context.Provider>
   );
