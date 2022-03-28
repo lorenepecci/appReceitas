@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+div {
+  display: flex;
+}
+
+footer {
+  background-color: #c4c4c4;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 582px;
+  width: 360px;
+}
