@@ -10,6 +10,9 @@ export default function SearchBar({ foodOrDrink }) {
     name: false,
     firstLetter: false,
   });
+  const [foodCarts, setFoodCards] = useState([]);
+  const [drinkCarts, setDrinkCards] = useState([]);
+  /*  const [dataAPI, setData] = useState([]); */
   const onInputChange = ({ target }) => {
     const { name, value } = target;
     setSearchState((prevState) => ({
@@ -59,15 +62,28 @@ export default function SearchBar({ foodOrDrink }) {
       response = await fetch(drinkTypeUrlFetch());
     }
     const data = await response.json();
-
-    if (data.meals && data.meals.length === 1) {
-      history.push(`/foods/${data.meals[0].idMeal}`);
-    }
-    if (data.drinks && data.drinks.length === 1) {
-      history.push(`/drinks/${data.drinks[0].idDrink}`);
-      console.log(data);
-    }
-    console.log(data);
+    const magicTwelve = 12;
+    if (data.meals) {
+      /*  setData(data.meals); */
+      if (data.meals.length === 1) {
+        history.push(`/foods/${data.meals[0].idMeal}`);
+      } else {
+        setFoodCards(data.meals.filter((_i, index) => index < magicTwelve));
+      }
+    } else if (data.drinks) {
+      /* setData(data.drinks); */
+      console.log(data.drinks);
+      if (data.drinks.length === 1) {
+        history.push(`/drinks/${data.drinks[0].idDrink}`);
+      } else {
+        setDrinkCards(data.drinks.filter((_i, index) => index < magicTwelve));
+      }
+    }/*  else {
+      alert('Sorry, we haven\'t found any recipes for these filters.');
+      setPrintFoodCards(false);
+      setPrintDrinkCards(false);
+    } */
+    console.log(data.drinks);
   };
 
   return (
@@ -124,6 +140,34 @@ export default function SearchBar({ foodOrDrink }) {
         Search
       </button>
 
+      { foodCarts.length && (
+        <div>
+          { foodCarts.map((item, index) => (
+            <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ item.strMealThumb }
+                alt="meal"
+              />
+              <h1 data-testid={ `${index}-card-name` }>{item.strMeal}</h1>
+            </div>
+          ))}
+        </div>
+      ) }
+      { drinkCarts.length && (
+        <div>
+          { drinkCarts.map((item, index) => (
+            <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ item.strDrinkThumb }
+                alt="drink"
+              />
+              <h1 data-testid={ `${index}-card-name` }>{item.strDrink}</h1>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
