@@ -33,7 +33,7 @@ function App() {
       <Route exact path="/explore/foods/ingredients" component={ IngredientsFoods } />
       <Route exact path="/explore/drinks/ingredients" component={ IngredientsDrinks } />
       <Route exact path="/explore/foods/nationalities" component={ NationalFoods } />
-      <Route exact path="/profile" component={ () => <Profile /> } />
+      <Route exact path="/profile" component={ Profile } />
       <Route exact path="/done-recipes" component={ DoneRecipes } />
       <Route exact path="/favorite-recipes" component={ Favorites } />
 

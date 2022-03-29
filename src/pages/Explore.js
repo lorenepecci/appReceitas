@@ -18,7 +18,7 @@ export default function Explore() {
 
   return (
     <div>
-      <Header title="Explorar" />
+      <Header title="Explore" />
       <button
         data-testid="explore-foods"
         type="button"

@@ -1,38 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import './Header.css';
 
-export default function Header({ title }) {
+export default function Header({ title, showSearchIcon }) {
+  const history = useHistory();
+  // const [openInput, setOpenInput] = useState(false);
+
   return (
-    <div>
-      <Link to="/profile">
-        <button
-          type="button"
-          // onClick={ () => history.push('/profile') }
-          // onClick={ () => {} }
-        >
-          <img
-            data-testid="profile-top-btn"
-            src={ profileIcon }
-            alt="Ícone do Perfil"
-          />
-        </button>
-      </Link>
+    <div className="header-container">
+      <button
+        type="button"
+        onClick={ () => history.push('/profile') }
+      >
+        <img
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+          alt="Ícone do Perfil"
+        />
+      </button>
       <h1 data-testid="page-title">{ title }</h1>
-      <img
+      { showSearchIcon && (<img
         data-testid="search-top-btn"
         src={ searchIcon }
         alt="Ícone do Perfil"
-      />
+      />)}
     </div>
   );
 }
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  // history: PropTypes.shape({
-  //   push: PropTypes.func.isRequired,
-  // }).isRequired,
+  showSearchIcon: PropTypes.bool.isRequired,
 };

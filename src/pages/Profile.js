@@ -7,7 +7,7 @@ import './Pages.css';
 export default function Profile() {
   return (
     <div>
-      <Header />
+      <Header title="Profile" />
       <div className="profile-container">
         <p data-testid="profile-email">Email</p>
         <Link to="/done-recipes">

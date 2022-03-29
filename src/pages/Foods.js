@@ -6,7 +6,7 @@ import FooterPages from '../components/FooterPages';
 export default function Foods() {
   return (
     <div>
-      <Header title="Foods" />
+      <Header title="Foods" showSearchIcon />
       Foods
       <SearchBar foodOrDrink="food" />
       <FooterPages />
