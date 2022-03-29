@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
 
 export default function Login() {
@@ -8,6 +9,8 @@ export default function Login() {
     loginButtonDissabled,
     setLoginButtonDissabled,
   } = useContext(Context);
+
+  const history = useHistory();
 
   const validadeForm = () => {
     const { email, password } = userInfos;
@@ -25,6 +28,15 @@ export default function Login() {
       [name]: value,
     }));
     validadeForm();
+  };
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    const { email } = userInfos;
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/foods');
   };
 
   return (
@@ -53,8 +65,9 @@ export default function Login() {
       </label>
       <button
         data-testid="login-submit-btn"
-        type="button"
+        type="submit"
         disabled={ loginButtonDissabled }
+        onClick={ handleClick }
       >
         Enter
       </button>
