@@ -5,11 +5,15 @@ import Header from '../components/Header';
 import './Pages.css';
 
 export default function Profile() {
+  const getUser = JSON.parse(localStorage.getItem('user'));
+  const clearLocalStorage = () => {
+    localStorage.clear();
+  };
   return (
     <div>
-      <Header title="Profile" />
+      <Header />
       <div className="profile-container">
-        <p data-testid="profile-email">Email</p>
+        <p data-testid="profile-email">{getUser.email}</p>
         <Link to="/done-recipes">
           <button data-testid="profile-done-btn" type="button">Done Recipes</button>
         </Link>
@@ -22,7 +26,13 @@ export default function Profile() {
           </button>
         </Link>
         <Link to="/">
-          <button data-testid="profile-logout-btn" type="button">Logout</button>
+          <button
+            onClick={ clearLocalStorage }
+            data-testid="profile-logout-btn"
+            type="button"
+          >
+            Logout
+          </button>
         </Link>
       </div>
       <FooterPages />
