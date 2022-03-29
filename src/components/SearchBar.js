@@ -10,9 +10,9 @@ export default function SearchBar({ foodOrDrink }) {
     name: false,
     firstLetter: false,
   });
-  const [foodCarts, setFoodCards] = useState([]);
-  const [drinkCarts, setDrinkCards] = useState([]);
-  /*  const [dataAPI, setData] = useState([]); */
+  const [foodCards, setFoodCards] = useState([]);
+  const [drinkCards, setDrinkCards] = useState([]);
+
   const onInputChange = ({ target }) => {
     const { name, value } = target;
     setSearchState((prevState) => ({
@@ -29,7 +29,7 @@ export default function SearchBar({ foodOrDrink }) {
       return `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchState.searchInput}`;
     case 'firstLetter':
       if (searchState.searchInput.length > 1) {
-        alert('Your search must have only 1 (one) character');
+        global.alert('Your search must have only 1 (one) character');
       }
       return `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchState.searchInput}`;
     default:
@@ -45,7 +45,7 @@ export default function SearchBar({ foodOrDrink }) {
       return `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchState.searchInput}`;
     case 'firstLetter':
       if (searchState.searchInput.length > 1) {
-        alert('Your search must have only 1 (one) character');
+        global.alert('Your search must have only 1 (one) character');
       }
       return `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchState.searchInput}`;
     default:
@@ -64,25 +64,23 @@ export default function SearchBar({ foodOrDrink }) {
     const data = await response.json();
     const magicTwelve = 12;
     if (data.meals) {
-      /*  setData(data.meals); */
       if (data.meals.length === 1) {
         history.push(`/foods/${data.meals[0].idMeal}`);
       } else {
         setFoodCards(data.meals.filter((_i, index) => index < magicTwelve));
       }
     } else if (data.drinks) {
-      /* setData(data.drinks); */
       console.log(data.drinks);
       if (data.drinks.length === 1) {
         history.push(`/drinks/${data.drinks[0].idDrink}`);
       } else {
         setDrinkCards(data.drinks.filter((_i, index) => index < magicTwelve));
       }
-    }/*  else {
-      alert('Sorry, we haven\'t found any recipes for these filters.');
-      setPrintFoodCards(false);
-      setPrintDrinkCards(false);
-    } */
+    } else {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      setFoodCards(false);
+      setDrinkCards(false);
+    }
     console.log(data.drinks);
   };
 
@@ -140,9 +138,9 @@ export default function SearchBar({ foodOrDrink }) {
         Search
       </button>
 
-      { foodCarts.length && (
+      { foodCards.length && (
         <div>
-          { foodCarts.map((item, index) => (
+          { foodCards.map((item, index) => (
             <div key={ index } data-testid={ `${index}-recipe-card` }>
               <img
                 data-testid={ `${index}-card-img` }
@@ -154,9 +152,9 @@ export default function SearchBar({ foodOrDrink }) {
           ))}
         </div>
       ) }
-      { drinkCarts.length && (
+      { drinkCards.length && (
         <div>
-          { drinkCarts.map((item, index) => (
+          { drinkCards.map((item, index) => (
             <div key={ index } data-testid={ `${index}-recipe-card` }>
               <img
                 data-testid={ `${index}-card-img` }
