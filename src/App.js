@@ -14,8 +14,8 @@ import NationalFoods from './pages/NationalFoods';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import Favorites from './pages/Favorites';
-import DetailsFoods from './DetailsFoods';
-import DetailsDrinks from './DetailsDrinks';
+// import DetailsFoods from './DetailsFoods';
+// import DetailsDrinks from './DetailsDrinks';
 import InProgressDrinks from './pages/InProgressDrinks';
 import InProgressFoods from './pages/InProgressFoods';
 

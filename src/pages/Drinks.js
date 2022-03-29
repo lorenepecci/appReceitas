@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import FooterPages from '../Components/FooterPages';
+import FooterPages from '../components/FooterPages';
 import SearchBar from '../components/SearchBar';
 
 export default function Drinks() {
