@@ -1,9 +1,15 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
-import Context from '../context/Context';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function SearchBar({ foodOrDrink }) {
-  const { searchState, setSearchState } = useContext(Context);
+  const history = useHistory();
+  const [searchState, setSearchState] = useState({
+    searchInput: '',
+    ingredient: false,
+    name: false,
+    firstLetter: false,
+  });
   const onInputChange = ({ target }) => {
     const { name, value } = target;
     setSearchState((prevState) => ({
@@ -33,7 +39,7 @@ export default function SearchBar({ foodOrDrink }) {
     case 'ingredient':
       return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchState.searchInput}`;
     case 'name':
-      return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?s=${searchState.searchInput}`;
+      return `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchState.searchInput}`;
     case 'firstLetter':
       if (searchState.searchInput.length > 1) {
         alert('Your search must have only 1 (one) character');
@@ -53,7 +59,15 @@ export default function SearchBar({ foodOrDrink }) {
       response = await fetch(drinkTypeUrlFetch());
     }
     const data = await response.json();
-    return console.log(data);
+
+    if (data.meals && data.meals.length === 1) {
+      history.push(`/foods/${data.meals[0].idMeal}`);
+    }
+    if (data.drinks && data.drinks.length === 1) {
+      history.push(`/drinks/${data.drinks[0].idDrink}`);
+      console.log(data);
+    }
+    console.log(data);
   };
 
   return (

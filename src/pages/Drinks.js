@@ -1,4 +1,5 @@
 import React from 'react';
+import FooterPages from '../Components/FooterPages';
 import SearchBar from '../components/SearchBar';
 
 export default function Drinks() {
@@ -6,6 +7,7 @@ export default function Drinks() {
     <div>
       Drinks
       <SearchBar foodOrDrink="drink" />
+      <FooterPages />
     </div>
   );
 }
