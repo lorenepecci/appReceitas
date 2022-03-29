@@ -5,7 +5,7 @@ import Header from '../components/Header';
 export default function Explore() {
   return (
     <div>
-      <Header title="Explorar" />
+      <Header title="Explore" />
       <FooterPages />
     </div>
   );

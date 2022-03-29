@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import './Header.css';
 
-export default function Header({ title }) {
+export default function Header({ title, showSearchIcon }) {
   const history = useHistory();
+  // const [openInput, setOpenInput] = useState(false);
 
   return (
-    <div>
-      {/* <Link to="/profile"> */}
+    <div className="header-container">
       <button
         type="button"
         onClick={ () => history.push('/profile') }
@@ -21,18 +22,16 @@ export default function Header({ title }) {
         />
       </button>
       <h1 data-testid="page-title">{ title }</h1>
-      <img
+      { showSearchIcon && (<img
         data-testid="search-top-btn"
         src={ searchIcon }
         alt="Ícone do Perfil"
-      />
+      />)}
     </div>
   );
 }
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  // history: PropTypes.shape({
-  //   push: PropTypes.func.isRequired,
-  // }).isRequired,
+  showSearchIcon: PropTypes.bool.isRequired,
 };

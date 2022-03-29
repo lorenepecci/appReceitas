@@ -7,7 +7,7 @@ export default function Drinks() {
   return (
     <div>
       Drinks
-      <Header title="Drinks" />
+      <Header title="Drinks" showSearchIcon />
       <SearchBar foodOrDrink="drink" />
       <FooterPages />
     </div>
