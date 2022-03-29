@@ -23,7 +23,7 @@ const FooterPages = () => (
         </button>
       </Link>
       <Link to="/foods">
-        <button data-testid="food-bottom-btn" type="button" src={ Foods }>
+        <button type="button">
           <img data-testid="food-bottom-btn" src={ Foods } alt="Icone de comidas" />
         </button>
       </Link>
