@@ -9,7 +9,23 @@ const Provider = ({ children }) => {
     name: false,
     firstLetter: false,
   });
-  const contextData = { searchState, setSearchState };
+
+  const [userInfos, setUserInfos] = useState({
+    email: '',
+    password: '',
+  });
+
+  const [loginButtonDissabled, setLoginButtonDissabled] = useState(true);
+
+  const contextData = {
+    searchState,
+    setSearchState,
+    userInfos,
+    setUserInfos,
+    loginButtonDissabled,
+    setLoginButtonDissabled,
+  };
+
   return (
     <Context.Provider value={ contextData }>
       { children }
