@@ -4,6 +4,7 @@
 }
 
 footer {
+  align-items: center;
   background-color: #c4c4c4;
   bottom: 0;
   display: flex;
@@ -11,4 +12,10 @@ footer {
   position: fixed;
   top: 582px;
   width: 360px;
+}
+
+button {
+  border: 0;
+  margin: 10px;
+  background-color: rgba(0, 221, 85, 0);
 }
