@@ -1,7 +1,21 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function DetailedRecipe() {
+export default function DetailedRecipe({ match: { params: { id } } }) {
+  console.log(id);
   return (
-    <h1>DetailedRecipe</h1>
+    <div>
+      DetailedRecipe
+      {' '}
+      {id}
+    </div>
   );
 }
+
+DetailedRecipe.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};
