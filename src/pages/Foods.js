@@ -7,7 +7,7 @@ export default function Foods() {
   return (
     <div>
       <Header title="Foods" foodOrDrink="food" showSearchIcon />
-      <HomePage />
+      <HomePage foodOrDrink="food" />
       <FooterPages />
     </div>
   );
