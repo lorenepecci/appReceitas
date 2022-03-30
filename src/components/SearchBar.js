@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Card from './Card';
 
 export default function SearchBar({ foodOrDrink }) {
   const history = useHistory();
@@ -10,6 +11,9 @@ export default function SearchBar({ foodOrDrink }) {
     name: false,
     firstLetter: false,
   });
+  const [foodCards, setFoodCards] = useState([]);
+  const [drinkCards, setDrinkCards] = useState([]);
+
   const onInputChange = ({ target }) => {
     const { name, value } = target;
     setSearchState((prevState) => ({
@@ -26,7 +30,7 @@ export default function SearchBar({ foodOrDrink }) {
       return `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchState.searchInput}`;
     case 'firstLetter':
       if (searchState.searchInput.length > 1) {
-        alert('Your search must have only 1 (one) character');
+        global.alert('Your search must have only 1 (one) character');
       }
       return `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchState.searchInput}`;
     default:
@@ -42,7 +46,7 @@ export default function SearchBar({ foodOrDrink }) {
       return `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchState.searchInput}`;
     case 'firstLetter':
       if (searchState.searchInput.length > 1) {
-        alert('Your search must have only 1 (one) character');
+        global.alert('Your search must have only 1 (one) character');
       }
       return `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchState.searchInput}`;
     default:
@@ -59,15 +63,26 @@ export default function SearchBar({ foodOrDrink }) {
       response = await fetch(drinkTypeUrlFetch());
     }
     const data = await response.json();
-
-    if (data.meals && data.meals.length === 1) {
-      history.push(`/foods/${data.meals[0].idMeal}`);
+    const magicTwelve = 12;
+    if (data.meals) {
+      if (data.meals.length === 1) {
+        history.push(`/foods/${data.meals[0].idMeal}`);
+      } else {
+        setFoodCards(data.meals.filter((_i, index) => index < magicTwelve));
+      }
+    } else if (data.drinks) {
+      console.log(data.drinks);
+      if (data.drinks.length === 1) {
+        history.push(`/drinks/${data.drinks[0].idDrink}`);
+      } else {
+        setDrinkCards(data.drinks.filter((_i, index) => index < magicTwelve));
+      }
+    } else {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      setFoodCards(false);
+      setDrinkCards(false);
     }
-    if (data.drinks && data.drinks.length === 1) {
-      history.push(`/drinks/${data.drinks[0].idDrink}`);
-      console.log(data);
-    }
-    console.log(data);
+    console.log(data.drinks);
   };
 
   return (
@@ -124,6 +139,24 @@ export default function SearchBar({ foodOrDrink }) {
         Search
       </button>
 
+      { foodCards.length && (
+        <div>
+          { foodCards.map((item, index) => (
+            <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <Card name={ item.strMeal } index={ index } img={ item.strMealThumb } />
+            </div>
+          ))}
+        </div>
+      ) }
+      { drinkCards.length && (
+        <div>
+          { drinkCards.map((item, index) => (
+            <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <Card name={ item.strDrink } index={ index } img={ item.strDrinkThumb } />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

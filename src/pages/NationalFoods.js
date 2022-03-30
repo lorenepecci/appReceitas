@@ -5,7 +5,7 @@ import Header from '../components/Header';
 export default function NationalFoods() {
   return (
     <div>
-      <Header title="Explore Nationalities" />
+      <Header title="Explore Nationalities" showSearchIcon />
       <FooterPages />
     </div>
   );
