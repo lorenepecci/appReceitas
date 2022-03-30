@@ -90,7 +90,9 @@ export default function HomePage({ foodOrDrink }) {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { startAPI(); apiCategories(); }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchByFilters(); }, [urlForFetch]);
 
   const onChangeCardsForCategory = (category) => {
