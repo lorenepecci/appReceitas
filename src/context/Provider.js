@@ -3,13 +3,6 @@ import React, { useState } from 'react';
 import Context from './Context';
 
 const Provider = ({ children }) => {
-  const [searchState, setSearchState] = useState({
-    searchInput: '',
-    ingredient: false,
-    name: false,
-    firstLetter: false,
-  });
-
   const [userInfos, setUserInfos] = useState({
     email: '',
     password: '',
@@ -18,8 +11,6 @@ const Provider = ({ children }) => {
   const [loginButtonDissabled, setLoginButtonDissabled] = useState(true);
 
   const contextData = {
-    searchState,
-    setSearchState,
     userInfos,
     setUserInfos,
     loginButtonDissabled,
