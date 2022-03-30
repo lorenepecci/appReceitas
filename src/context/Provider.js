@@ -17,6 +17,9 @@ const Provider = ({ children }) => {
 
   const [loginButtonDissabled, setLoginButtonDissabled] = useState(true);
 
+  const [dataDetailedFood, setDataDetailedFood] = useState();
+  const [dataDetailedDrink, setDataDetailedDrink] = useState();
+
   const contextData = {
     searchState,
     setSearchState,
@@ -24,6 +27,10 @@ const Provider = ({ children }) => {
     setUserInfos,
     loginButtonDissabled,
     setLoginButtonDissabled,
+    dataDetailedFood,
+    setDataDetailedFood,
+    dataDetailedDrink,
+    setDataDetailedDrink,
   };
 
   return (
