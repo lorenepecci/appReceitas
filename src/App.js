@@ -39,19 +39,11 @@ function App() {
 
       <Route
         exact
-        path="/foods/:id"
+        path="/:foodOrDrink/:id"
         render={
           (props) => <DetailedRecipe { ...props } />
         }
       />
-      <Route
-        exact
-        path="/drinks/:id"
-        render={
-          (props) => <DetailedRecipe { ...props } />
-        }
-      />
-
     </Switch>
   );
 }
