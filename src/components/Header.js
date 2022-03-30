@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import './Header.css';
+import SearchBar from './SearchBar';
 
-export default function Header({ title, showSearchIcon }) {
+export default function Header({ title, showSearchIcon, foodOrDrink }) {
   const history = useHistory();
-  // const [openInput, setOpenInput] = useState(false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
   return (
     <div className="header-container">
@@ -22,11 +23,19 @@ export default function Header({ title, showSearchIcon }) {
         />
       </button>
       <h1 data-testid="page-title">{ title }</h1>
-      { showSearchIcon && (<img
-        data-testid="search-top-btn"
-        src={ searchIcon }
-        alt="Ícone do Perfil"
-      />)}
+      { showSearchIcon && (
+        <button
+          type="button"
+          onClick={ () => { setShowSearchBar(!showSearchBar); } }
+        >
+          <img
+            data-testid="search-top-btn"
+            src={ searchIcon }
+            alt="Ícone do Perfil"
+          />
+        </button>
+      ) }
+      {showSearchBar && <SearchBar foodOrDrink={ foodOrDrink } />}
     </div>
   );
 }
@@ -34,4 +43,5 @@ export default function Header({ title, showSearchIcon }) {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   showSearchIcon: PropTypes.bool.isRequired,
+  foodOrDrink: PropTypes.bool.isRequired,
 };

@@ -5,15 +5,20 @@ import Header from '../components/Header';
 import './Pages.css';
 
 export default function Profile() {
-  const getUser = JSON.parse(localStorage.getItem('user'));
   const clearLocalStorage = () => {
     localStorage.clear();
   };
+
+  const verifyEmail = () => {
+    const getUser = JSON.parse(localStorage.getItem('user'));
+    return getUser || '';
+  };
+
   return (
     <div>
-      <Header />
+      <Header title="Profile" />
       <div className="profile-container">
-        <p data-testid="profile-email">{getUser.email}</p>
+        <p data-testid="profile-email">{verifyEmail()}</p>
         <Link to="/done-recipes">
           <button data-testid="profile-done-btn" type="button">Done Recipes</button>
         </Link>
