@@ -11,20 +11,18 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
   useEffect(() => {
     const fetchData = async () => {
       const response = await getByType(id, foodOrDrink);
-      console.log(response);
       return response;
     };
     fetchData();
 
     const fetchRecommendations = async () => {
       const response = await getRecommendations(foodOrDrink);
-      const results = response.meals;
-      console.log(response);
-      setRecommendations(results
-        .filter((item, index) => index <= LIMITED_OPTIONS));
+      const results = response.mels ? response.mels : response.drinks;
+      setRecommendations(results.filter((item, index) => index <= LIMITED_OPTIONS));
     };
     fetchRecommendations();
-  });
+  }, [foodOrDrink, id]);
+  console.log(optionsRecommendations);
   return (
     <div>
       DetailedRecipe
@@ -33,8 +31,8 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
         <CardDetails
           key={ index }
           index={ index }
-          name={ options.strMeal }
-          img={ options.strMealThumb }
+          name={ options.strMeal || options.strDrink }
+          img={ options.strMealThumb || options.strDrinkThumb }
         />
       ))}
     </div>
@@ -46,6 +44,6 @@ DetailedRecipe.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
       foodOrDrink: PropTypes.string.isRequired,
-    }),
+    }).isRequired,
   }).isRequired,
 };
