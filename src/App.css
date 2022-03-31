@@ -15,19 +15,73 @@
   max-height: 80vh;
 }
 
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
+footer {
+  align-items: center;
+  background-color: #c4c4c4;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 582px;
+  width: 360px;
 }
-*/
+
+button img {
+  width: 30px;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+button {
+  background-color: rgba(0, 221, 85, 0);
+  border: 0;
+  margin: 10px;
+}
+
+.container-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  width: 360px;
+}
+
+.container-items img {
+  width: 150px;
+}
+
+.header-container {
+  align-items: center;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+}
+
+.container-header {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.container-header button {
+  border: 1px solid;
+  border-radius: 50px;
+  font-size: 10px;
+  margin: 4px;
+  padding: 4px;
+}
+
+.container-header button:hover {
+  background-color: #c4c4c4;
+}
 
 .meals > .logo {
   animation: shake 1.5s infinite ease;
