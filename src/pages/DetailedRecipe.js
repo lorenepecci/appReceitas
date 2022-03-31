@@ -2,15 +2,20 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { getByType, getRecommendations } from '../services/IDApi';
 import CardDetails from '../components/CardDetails';
+import DetailedComponent from '../components/DetailedComponent';
 
 const LIMITED_OPTIONS = 5;
 
 export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } }) {
   const [optionsRecommendations, setRecommendations] = useState([]);
+
+  const [dataDetailed, setDataDetailed] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await getByType(id, foodOrDrink);
-      return response;
+      // const results = response.mels ? response.mels : response.drinks;
+      setDataDetailed(response);
     };
     fetchData();
 
@@ -21,11 +26,13 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
     };
     fetchRecommendations();
   }, [foodOrDrink, id]);
-  console.log(optionsRecommendations);
+  console.log(optionsRecommendations, 'data', dataDetailed);
+
   return (
     <div>
       DetailedRecipe
       {id}
+      <DetailedComponent dataDetailed={ dataDetailed } />
       {optionsRecommendations.map((options, index) => (
         <CardDetails
           key={ index }
@@ -34,6 +41,12 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
           img={ options.strMealThumb || options.strDrinkThumb }
         />
       ))}
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+      >
+        Iniciar receita
+      </button>
     </div>
   );
 }

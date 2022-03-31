@@ -10,18 +10,11 @@ const Provider = ({ children }) => {
 
   const [loginButtonDissabled, setLoginButtonDissabled] = useState(true);
 
-  const [dataDetailedFood, setDataDetailedFood] = useState();
-  const [dataDetailedDrink, setDataDetailedDrink] = useState();
-
   const contextData = {
     userInfos,
     setUserInfos,
     loginButtonDissabled,
     setLoginButtonDissabled,
-    dataDetailedFood,
-    setDataDetailedFood,
-    dataDetailedDrink,
-    setDataDetailedDrink,
   };
 
   return (
