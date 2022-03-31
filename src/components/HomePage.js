@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import Card from './Card';
+import MapCards from './MapCards';
 
 export default function HomePage({ foodOrDrink }) {
   const [foodCards, setFoodCards] = useState([]);
   const [drinkCards, setDrinkCards] = useState([]);
   const [urlForFetch, setUrlForFetch] = useState('');
+  const [isToggled, setIsToggled] = useState(true);
   const [listCategories, setListCategories] = useState([{ strCategory: 'All' }]);
 
   const URLCategoriesFood = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
@@ -26,22 +27,23 @@ export default function HomePage({ foodOrDrink }) {
     if (foodOrDrink === 'drink') return URLstartDrink;
   };
 
-  const saveDrinklist = (data) => {
-    setDrinkCards(data.drinks
-      .filter((_i, index) => index < magicTwelve));
-  };
-
-  const saveFoodlist = (data) => {
-    setFoodCards(data.meals
-      .filter((_i, index) => index < magicTwelve));
+  const savelist = (data) => {
+    if (foodOrDrink === 'drink') {
+      setDrinkCards(data.drinks
+        .filter((_i, index) => index < magicTwelve));
+    }
+    if (foodOrDrink === 'food') {
+      setFoodCards(data.meals
+        .filter((_i, index) => index < magicTwelve));
+    }
   };
 
   const setCardsForType = (data) => {
     if (foodOrDrink === 'food') {
-      return saveFoodlist(data);
+      return savelist(data);
     }
     if (foodOrDrink === 'drink') {
-      return saveDrinklist(data);
+      return savelist(data);
     }
   };
 
@@ -54,66 +56,50 @@ export default function HomePage({ foodOrDrink }) {
     }
   };
 
-  const startAPI = async () => {
+  const apiCategories = async () => {
     try {
-      const response = await fetch(URLstart());
+      const response = await fetch(URLCategories());
+      const categories = await response.json();
+      setListCategoriesForType(categories);
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const fetchByFilters = async (url) => {
+    try {
+      const response = await fetch(url);
       const data = await response.json();
       setCardsForType(data);
     } catch (error) {
       return error;
     }
   };
-  const apiCategories = async () => {
-    try {
-      const response = await fetch(URLCategories());
-      const categories = await response.json();
-      setListCategoriesForType(categories);
-      console.log(listCategories);
-    } catch (error) {
-      return error;
-    }
-  };
 
-  const fetchByFilters = async () => {
-    try {
-      const response = await fetch(urlForFetch);
-      const data = await response.json();
-      console.log(data);
-      if (data.meals) {
-        saveFoodlist(data);
-      }
-      if (data.drinks) {
-        saveDrinklist(data);
-      }
-    } catch (error) {
-      return error;
-    }
-  };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { startAPI(); apiCategories(); }, []);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { fetchByFilters(); }, [urlForFetch]);
+  useEffect(() => { fetchByFilters(URLstart()); apiCategories(); }, []);
+  useEffect(() => { fetchByFilters(urlForFetch); }, [urlForFetch]);
 
   const onChangeCardsForCategory = (category) => {
-    if (foodOrDrink === 'food') {
-      if (category === 'All') {
-        setUrlForFetch(URLstart);
-      } else {
-        setUrlForFetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
-      }
+    if (category === 'All') {
+      setUrlForFetch(URLstart);
+    } else if (foodOrDrink === 'food') {
+      setUrlForFetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
     } else if (foodOrDrink === 'drink') {
-      if (category === 'All') {
-        setUrlForFetch(URLstart);
-      } else {
-        setUrlForFetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
-      }
+      setUrlForFetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
     }
+  };
+
+  const onClickButtonCategorie = (category) => {
+    if (isToggled) {
+      onChangeCardsForCategory(category);
+    } else {
+      onChangeCardsForCategory('All');
+    }
+    setIsToggled(!isToggled);
   };
 
   return (
     <div>
-      HomePage
       <div className="container-header">
         { listCategories.length
             && listCategories.filter((_, index) => index < magicFor)
@@ -122,33 +108,18 @@ export default function HomePage({ foodOrDrink }) {
                   key={ i }
                   type="button"
                   data-testid={ `${category.strCategory}-category-filter` }
-                  onClick={ () => onChangeCardsForCategory(category.strCategory) }
+                  onClick={ () => onClickButtonCategorie(category.strCategory) }
                 >
                   {category.strCategory}
                 </button>
               ))}
       </div>
       { foodCards.length && (
-        <div className="container-items">
-          { foodCards.map((item, index) => (
-            <div key={ index } data-testid={ `${index}-recipe-card` }>
-              <Card name={ item.strMeal } index={ index } img={ item.strMealThumb } />
-            </div>
-          )) }
-
-        </div>
+        <MapCards list={ foodCards } foodOrDrink={ foodOrDrink } />
       ) }
       { drinkCards.length && (
-        <div className="container-items">
-          { drinkCards.map((item, index) => (
-            <div key={ index } data-testid={ `${index}-recipe-card` }>
-              <Card name={ item.strDrink } index={ index } img={ item.strDrinkThumb } />
-            </div>
-          )) }
-
-        </div>
+        <MapCards list={ drinkCards } foodOrDrink={ foodOrDrink } />
       ) }
-
     </div>
   );
 }
