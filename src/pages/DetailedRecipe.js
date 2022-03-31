@@ -2,12 +2,15 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { getByType, getRecommendations } from '../services/IDApi';
 import CardDetails from '../components/CardDetails';
+// import setLocalStorage from '../helpers/createLocalStorage';
+import { DoneRecipesStore } from '../helpers/VerifyLocalStorage';
+import Button from '../components/Button';
 
 const LIMITED_OPTIONS = 5;
 
 export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } }) {
   const [optionsRecommendations, setRecommendations] = useState([]);
-  console.log('id:', id, 'foodOrDrink', foodOrDrink);
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await getByType(id, foodOrDrink);
@@ -22,7 +25,6 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
     };
     fetchRecommendations();
   }, [foodOrDrink, id]);
-  console.log(optionsRecommendations);
   return (
     <div>
       DetailedRecipe
@@ -40,14 +42,12 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
         ))}
       </ul>
       <span className="container-btn-start">
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
+        {!DoneRecipesStore(id) ? <Button
+          datatestid="start-recipe-btn"
           className="btn-start"
-        >
-          Start Recipe
+          text="Start Recipe"
 
-        </button>
+        /> : ''}
       </span>
     </div>
   );
