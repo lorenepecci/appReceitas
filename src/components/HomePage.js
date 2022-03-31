@@ -114,7 +114,8 @@ export default function HomePage({ foodOrDrink }) {
   return (
     <div>
       HomePage
-      { listCategories.length
+      <div className="container-header">
+        { listCategories.length
             && listCategories.filter((_, index) => index < magicFor)
               .map((category, i) => (
                 <button
@@ -126,8 +127,9 @@ export default function HomePage({ foodOrDrink }) {
                   {category.strCategory}
                 </button>
               ))}
+      </div>
       { foodCards.length && (
-        <div>
+        <div className="container-items">
           { foodCards.map((item, index) => (
             <div key={ index } data-testid={ `${index}-recipe-card` }>
               <Card name={ item.strMeal } index={ index } img={ item.strMealThumb } />
@@ -137,7 +139,7 @@ export default function HomePage({ foodOrDrink }) {
         </div>
       ) }
       { drinkCards.length && (
-        <div>
+        <div className="container-items">
           { drinkCards.map((item, index) => (
             <div key={ index } data-testid={ `${index}-recipe-card` }>
               <Card name={ item.strDrink } index={ index } img={ item.strDrinkThumb } />

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import './Header.css';
 import SearchBar from './SearchBar';
 
 export default function Header({ title, showSearchIcon, foodOrDrink }) {

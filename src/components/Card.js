@@ -4,12 +4,12 @@ import React from 'react';
 export default function Card({ index, name, img }) {
   return (
     <div key={ index } data-testid={ `${index}-recipe-card` }>
+      <h1 data-testid={ `${index}-card-name` }>{name}</h1>
       <img
         data-testid={ `${index}-card-img` }
         src={ img }
         alt="drink"
       />
-      <h1 data-testid={ `${index}-card-name` }>{name}</h1>
     </div>
   );
 }
