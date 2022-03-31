@@ -77,7 +77,7 @@ export default function HomePage({ foodOrDrink }) {
     }
   };
 
-  useEffect(() => { fetchByFilters(URLstart()); apiCategories(); }, []);
+  useEffect(() => { setUrlForFetch(URLstart); apiCategories(); }, []);
   useEffect(() => { fetchByFilters(urlForFetch); }, [urlForFetch]);
 
   const onChangeCardsForCategory = (category) => {
