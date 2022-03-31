@@ -1,19 +1,40 @@
-// import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import React from 'react';
-// import Context from '../context/Context';
+import React, { useContext } from 'react';
+import Context from '../context/Context';
 import ShareIcon from '../images/shareIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 
-function DetailedComponent({ dataDetailed }) {
-  // const { dataDetailed } = useContext(Context);
-  console.log('data2', dataDetailed, 'ingr', dataDetailed[0].strIngredient1);
+function DetailedComponent() {
+  const {
+    dataDetailed,
+    // listOfIngredients,
+    // setListOfIngredients,
+  } = useContext(Context);
+
+  const newData = dataDetailed[0];
+
+  const removeEmptyFilter = (obj) => Object
+    .fromEntries(Object.entries(obj).filter(([, v]) => v != null && v !== ''));
+
+  const strIngredient = 'strIngredient';
+  const filteredKeys = Object.keys(newData).filter((key) => key.match(strIngredient))
+    .reduce((obj, key) => {
+      obj[key] = newData[key];
+      // return obj;
+      return removeEmptyFilter(obj);
+    }, {});
+  console.log('fim', newData);
 
   return (
     <div>
+      <img
+        data-testid="recipe-photo"
+        src={ newData.strMealThumb || newData.strDrinkThumb }
+        alt="Imagem da receita pronta"
+        width="200px"
+      />
       <div>
         <h2 data-testid="recipe-title">
-          nome
+          { newData.strMeal || newData.strDrink }
         </h2>
         <button type="button">
           <img
@@ -31,27 +52,27 @@ function DetailedComponent({ dataDetailed }) {
         </button>
       </div>
       <p data-testid="recipe-category">
-        categoria
+        { newData.strCategory }
       </p>
       <div>
-        {dataDetailed[0].map((ingredientes, index) => (
+        <h3>Ingredients</h3>
+        {Object.values(filteredKeys).map((value, index) => (
           <p
             data-testid={ `${index}-ingredient-name-and-measure` }
             key={ index }
           >
-            {ingredientes}
+            {value}
           </p>
         ))}
       </div>
-      <p data-testid="recipe-category">
-        instruções
-      </p>
+      <div>
+        <h3>Instructions</h3>
+        <p data-testid="recipe-category">
+          { newData.strInstructions }
+        </p>
+      </div>
     </div>
   );
 }
-
-DetailedComponent.propTypes = {
-  dataDetailed: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
-};
 
 export default DetailedComponent;
