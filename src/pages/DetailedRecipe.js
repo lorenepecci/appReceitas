@@ -8,7 +8,7 @@ const LIMITED_OPTIONS = 5;
 
 export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } }) {
   const [optionsRecommendations, setRecommendations] = useState([]);
-  const [dataDetailed, setDataDetailed] = useState();
+  const [dataDetailed, setDataDetailed] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       const response = await getByType(id, foodOrDrink);
@@ -25,6 +25,8 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
     };
     fetchRecommendations();
   }, [foodOrDrink, id]);
+
+  console.log('data1', dataDetailed, 'recomend', optionsRecommendations);
 
   return (
     <div>

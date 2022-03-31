@@ -7,9 +7,7 @@ import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function DetailedComponent({ dataDetailed }) {
   // const { dataDetailed } = useContext(Context);
-  console.log('data2', dataDetailed);
-
-  // const results = dataDetailed.mels ? dataDetailed.mels : dataDetailed.drinks;
+  console.log('data2', dataDetailed, 'ingr', dataDetailed[0].strIngredient1);
 
   return (
     <div>
@@ -36,7 +34,7 @@ function DetailedComponent({ dataDetailed }) {
         categoria
       </p>
       <div>
-        {dataDetailed.map((ingredientes, index) => (
+        {dataDetailed[0].map((ingredientes, index) => (
           <p
             data-testid={ `${index}-ingredient-name-and-measure` }
             key={ index }
@@ -53,7 +51,7 @@ function DetailedComponent({ dataDetailed }) {
 }
 
 DetailedComponent.propTypes = {
-  dataDetailed: PropTypes.objectOf(PropTypes.arrayOf).isRequired,
+  dataDetailed: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
 };
 
 export default DetailedComponent;
