@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import MapCards from './MapCards';
+import Context from '../context/Context';
 
 export default function SearchBar({ foodOrDrink }) {
   const history = useHistory();
@@ -11,8 +11,8 @@ export default function SearchBar({ foodOrDrink }) {
     name: false,
     firstLetter: false,
   });
-  const [foodCards, setFoodCards] = useState([]);
-  const [drinkCards, setDrinkCards] = useState([]);
+  const { setFoodCards } = useContext(Context);
+  const { setDrinkCards } = useContext(Context);
 
   const onInputChange = ({ target }) => {
     const { name, value } = target;
@@ -139,12 +139,12 @@ export default function SearchBar({ foodOrDrink }) {
         Search
       </button>
 
-      { foodCards.length && (
+      {/*  { foodCards.length && (
         <MapCards list={ foodCards } foodOrDrink={ foodOrDrink } />
       ) }
       { drinkCards.length && (
         <MapCards list={ drinkCards } foodOrDrink={ foodOrDrink } />
-      ) }
+      ) } */}
     </div>
   );
 }
