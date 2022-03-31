@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import Card from './Card';
+import MapCards from './MapCards';
 
 export default function HomePage({ foodOrDrink }) {
   const [foodCards, setFoodCards] = useState([]);
@@ -75,9 +75,7 @@ export default function HomePage({ foodOrDrink }) {
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchByFilters(URLstart()); apiCategories(); }, []);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchByFilters(urlForFetch); }, [urlForFetch]);
 
   const onChangeCardsForCategory = (category) => {
@@ -108,26 +106,11 @@ export default function HomePage({ foodOrDrink }) {
               ))}
       </div>
       { foodCards.length && (
-        <div className="container-items">
-          { foodCards.map((item, index) => (
-            <div key={ index } data-testid={ `${index}-recipe-card` }>
-              <Card name={ item.strMeal } index={ index } img={ item.strMealThumb } />
-            </div>
-          )) }
-
-        </div>
+        <MapCards list={ foodCards } foodOrDrink={ foodOrDrink } />
       ) }
       { drinkCards.length && (
-        <div className="container-items">
-          { drinkCards.map((item, index) => (
-            <div key={ index } data-testid={ `${index}-recipe-card` }>
-              <Card name={ item.strDrink } index={ index } img={ item.strDrinkThumb } />
-            </div>
-          )) }
-
-        </div>
+        <MapCards list={ drinkCards } foodOrDrink={ foodOrDrink } />
       ) }
-
     </div>
   );
 }

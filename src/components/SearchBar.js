@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Card from './Card';
+import MapCards from './MapCards';
 
 export default function SearchBar({ foodOrDrink }) {
   const history = useHistory();
@@ -140,23 +140,11 @@ export default function SearchBar({ foodOrDrink }) {
       </button>
 
       { foodCards.length && (
-        <div>
-          { foodCards.map((item, index) => (
-            <div key={ index } data-testid={ `${index}-recipe-card` }>
-              <Card name={ item.strMeal } index={ index } img={ item.strMealThumb } />
-            </div>
-          ))}
-        </div>
+        <MapCards list={ foodCards } foodOrDrink={ foodOrDrink } />
       ) }
       { drinkCards.length && (
-        <div>
-          { drinkCards.map((item, index) => (
-            <div key={ index } data-testid={ `${index}-recipe-card` }>
-              <Card name={ item.strDrink } index={ index } img={ item.strDrinkThumb } />
-            </div>
-          ))}
-        </div>
-      )}
+        <MapCards list={ drinkCards } foodOrDrink={ foodOrDrink } />
+      ) }
     </div>
   );
 }
