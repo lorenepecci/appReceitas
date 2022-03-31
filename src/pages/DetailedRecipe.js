@@ -39,6 +39,16 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
           </li>
         ))}
       </ul>
+      <span className="container-btn-start">
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          className="btn-start"
+        >
+          Start Recipe
+
+        </button>
+      </span>
     </div>
   );
 }
