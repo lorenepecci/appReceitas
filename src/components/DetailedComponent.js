@@ -67,7 +67,7 @@ function DetailedComponent() {
       </div>
       <div>
         <h3>Instructions</h3>
-        <p data-testid="recipe-category">
+        <p data-testid="instructions">
           { newData.strInstructions }
         </p>
       </div>

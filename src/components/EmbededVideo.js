@@ -19,6 +19,7 @@ function EmbededVideo({ embedLink }) {
   return (
     <div className="video-responsive">
       <iframe
+        data-testid="video"
         width="560"
         height="315"
         src={ iframeMarkup }
