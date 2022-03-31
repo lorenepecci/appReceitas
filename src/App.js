@@ -44,7 +44,6 @@ function App() {
           (props) => <DetailedRecipe { ...props } />
         }
       />
-
     </Switch>
   );
 }
