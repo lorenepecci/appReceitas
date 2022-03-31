@@ -7,6 +7,7 @@ const LIMITED_OPTIONS = 5;
 
 export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } }) {
   const [optionsRecommendations, setRecommendations] = useState([]);
+  console.log('id:', id, 'foodOrDrink', foodOrDrink);
   useEffect(() => {
     const fetchData = async () => {
       const response = await getByType(id, foodOrDrink);
@@ -16,8 +17,8 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
 
     const fetchRecommendations = async () => {
       const response = await getRecommendations(foodOrDrink);
-      const results = response.mels ? response.mels : response.drinks;
-      setRecommendations(results.filter((item, index) => index <= LIMITED_OPTIONS));
+      const results = response.meals ? response.meals : response.drinks;
+      setRecommendations(results.filter((_item, index) => index <= LIMITED_OPTIONS));
     };
     fetchRecommendations();
   }, [foodOrDrink, id]);
@@ -26,14 +27,18 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
     <div>
       DetailedRecipe
       {id}
-      {optionsRecommendations.map((options, index) => (
-        <CardDetails
-          key={ index }
-          index={ index }
-          name={ options.strMeal || options.strDrink }
-          img={ options.strMealThumb || options.strDrinkThumb }
-        />
-      ))}
+      <ul className="last-receitas pre_con">
+        {optionsRecommendations.map((options, index) => (
+          <li key={ index } className="pre-card">
+            <CardDetails
+              className="cardDetails"
+              index={ index }
+              name={ options.strMeal || options.strDrink }
+              img={ options.strMealThumb || options.strDrinkThumb }
+            />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
