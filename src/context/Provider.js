@@ -7,10 +7,16 @@ const Provider = ({ children }) => {
     email: '',
     password: '',
   });
+  const [foodCards, setFoodCards] = useState([]);
+  const [drinkCards, setDrinkCards] = useState([]);
 
   const [loginButtonDissabled, setLoginButtonDissabled] = useState(true);
 
   const contextData = {
+    drinkCards,
+    setDrinkCards,
+    foodCards,
+    setFoodCards,
     userInfos,
     setUserInfos,
     loginButtonDissabled,
