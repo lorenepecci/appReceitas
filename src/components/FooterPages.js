@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Drinks from '../images/drinkIcon.svg';
 import Explore from '../images/exploreIcon.svg';
 import Foods from '../images/mealIcon.svg';
-import './Footer.css';
 
 const FooterPages = () => (
   <div>

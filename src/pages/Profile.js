@@ -11,7 +11,7 @@ export default function Profile() {
 
   const verifyEmail = () => {
     const getUser = JSON.parse(localStorage.getItem('user'));
-    return getUser || '';
+    return getUser.email || '';
   };
 
   return (
