@@ -6,6 +6,7 @@ export default function HomePage({ foodOrDrink }) {
   const [foodCards, setFoodCards] = useState([]);
   const [drinkCards, setDrinkCards] = useState([]);
   const [urlForFetch, setUrlForFetch] = useState('');
+  const [isToggled, setIsToggled] = useState(true);
   const [listCategories, setListCategories] = useState([{ strCategory: 'All' }]);
 
   const URLCategoriesFood = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
@@ -88,9 +89,17 @@ export default function HomePage({ foodOrDrink }) {
     }
   };
 
+  const onClickButtonCategorie = (category) => {
+    if (isToggled) {
+      onChangeCardsForCategory(category);
+    } else {
+      onChangeCardsForCategory('All');
+    }
+    setIsToggled(!isToggled);
+  };
+
   return (
     <div>
-      HomePage
       <div className="container-header">
         { listCategories.length
             && listCategories.filter((_, index) => index < magicFor)
@@ -99,7 +108,7 @@ export default function HomePage({ foodOrDrink }) {
                   key={ i }
                   type="button"
                   data-testid={ `${category.strCategory}-category-filter` }
-                  onClick={ () => onChangeCardsForCategory(category.strCategory) }
+                  onClick={ () => onClickButtonCategorie(category.strCategory) }
                 >
                   {category.strCategory}
                 </button>
