@@ -44,12 +44,24 @@
   width: 170px;
 }
 
+.container-btn-start {
+  background-color: #868992;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-start {
+  align-items: center;
+  bottom: 0;
+  position: fixed;
+}
+
 ul {
   margin-block-end: 1em;
   margin-block-start: 1em;
   margin-inline-end: 0;
   margin-inline-start: 0;
-  padding-inline-start: 40px;
+  padding-left: 2px;
 }
 
 li {
