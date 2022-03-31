@@ -8,14 +8,13 @@ const LIMITED_OPTIONS = 5;
 
 export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } }) {
   const [optionsRecommendations, setRecommendations] = useState([]);
-
-  const [dataDetailed, setDataDetailed] = useState([]);
-
+  const [dataDetailed, setDataDetailed] = useState();
   useEffect(() => {
     const fetchData = async () => {
       const response = await getByType(id, foodOrDrink);
-      // const results = response.mels ? response.mels : response.drinks;
-      setDataDetailed(response);
+      const results = response.meals ? response.meals : response.drinks;
+      console.log(response);
+      setDataDetailed(results);
     };
     fetchData();
 
@@ -26,13 +25,12 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
     };
     fetchRecommendations();
   }, [foodOrDrink, id]);
-  console.log(optionsRecommendations, 'data', dataDetailed);
 
   return (
     <div>
       DetailedRecipe
       {id}
-      <DetailedComponent dataDetailed={ dataDetailed } />
+      {<DetailedComponent dataDetailed={ dataDetailed } />}
       {optionsRecommendations.map((options, index) => (
         <CardDetails
           key={ index }
