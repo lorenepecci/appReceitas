@@ -12,8 +12,8 @@ export default function SearchBar({ foodOrDrink }) {
     name: false,
     firstLetter: false,
   });
-  const { setFoodCards } = useContext(Context);
-  const { setDrinkCards } = useContext(Context);
+  const { foodCards, setFoodCards } = useContext(Context);
+  const { drinkCards, setDrinkCards } = useContext(Context);
 
   const onInputChange = ({ target }) => {
     const { name, value } = target;
