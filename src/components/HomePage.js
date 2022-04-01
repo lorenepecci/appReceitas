@@ -98,7 +98,6 @@ export default function HomePage({ foodOrDrink }) {
   };
 
   const onClickButtonCategorie = (category) => {
-    console.log(previousCategorie);
     if (category !== previousCategorie) {
       onChangeCardsForCategory(category);
     } else {
