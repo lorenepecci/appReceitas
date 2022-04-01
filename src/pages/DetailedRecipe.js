@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+// import copy from 'clipboard-copy';
 import CardDetails from '../components/CardDetails';
 import { DoneRecipesStore, InProgressRecipesStore } from '../helpers/VerifyLocalStorage';
 import Button from '../components/Button';
+import Share from '../components/Share';
+import Favorites from '../components/Favorites';
 import { getByType, getRecommendations } from '../services/IDApi';
 
 const LIMITED_OPTIONS = 5;
@@ -11,6 +14,10 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
   const [optionsRecommendations, setRecommendations] = useState([]);
   const inProgressRecipes = InProgressRecipesStore(foodOrDrink, id)
     ? 'Continue Recipe' : 'Start Recipe';
+
+  // button.addEventListener('click', () => {
+  //   copy('This is some cool text');
+  // });
   useEffect(() => {
     const fetchData = async () => {
       const response = await getByType(id, foodOrDrink);
@@ -32,12 +39,12 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
           DetailedRecipe
         </h1>
       </span>
-      <Button
+      <Share
         datatestid="share-btn"
         className="btn-share"
         text="compartilhar"
       />
-      <Button
+      <Favorites
         datatestid="favorite-btn"
         className="btn-favorite"
         text="Favoritar"
