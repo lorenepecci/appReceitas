@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import FooterPages from '../components/FooterPages';
 import Header from '../components/Header';
 import './Pages.css';
 
 export default function Profile() {
+  const [user, setUser] = useState('');
   const clearLocalStorage = () => {
     localStorage.clear();
   };
 
   const verifyEmail = () => {
-    const getUser = JSON.parse(localStorage.getItem('user'));
-    return getUser.email || '';
+    if (user) {
+      return user.email;
+    }
+    return '';
   };
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('user')));
+  }, []);
 
   return (
     <div>
       <Header title="Profile" />
       <div className="profile-container">
+        { (user) && <p data-testid="profile-email">{verifyEmail}</p>}
         <p data-testid="profile-email">{verifyEmail()}</p>
         <Link to="/done-recipes">
           <button data-testid="profile-done-btn" type="button">Done Recipes</button>
