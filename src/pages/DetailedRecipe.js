@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import Button from '../components/Button';
 import CardDetails from '../components/CardDetails';
 import { DoneRecipesStore, InProgressRecipesStore } from '../helpers/VerifyLocalStorage';
 import Button from '../components/Button';

@@ -19,11 +19,11 @@ export default function IngredientsFoods() {
     };
     FetchIngredients();
   }, []);
-  /* strIngredient idIngredient */
-  const num = 12;
+
+  const magicTwelve = 12;
   useEffect(() => {
     setTwelveIngredients(listIngredients
-      .filter((_i, index) => index < num));
+      .filter((_i, index) => index < magicTwelve));
   }, [listIngredients]);
 
   return (
@@ -35,6 +35,7 @@ export default function IngredientsFoods() {
             <CardIngredients
               name={ item.strIngredient }
               index={ index }
+              isFood
             />
           </div>
         ))}
