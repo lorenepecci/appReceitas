@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
 import Favorites from './Favorites';
 import Share from './Share';
@@ -12,6 +12,8 @@ function DetailedComponent({ foodOrDrink }) {
     listOfIngredients,
     setListOfIngredients,
   } = useContext(Context);
+
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
 
   const newData = dataDetailed[0];
 
@@ -38,6 +40,11 @@ function DetailedComponent({ foodOrDrink }) {
     });
   }, [newData, setListOfIngredients]);
 
+  const handleClick = () => {
+    copy(window.location.href);
+    setIsLinkCopied(true);
+  };
+
   return (
     <div>
       <img
@@ -52,20 +59,22 @@ function DetailedComponent({ foodOrDrink }) {
         </h2>
         <button
           type="button"
-          onClick={ () => copy('Link copied!') }
+          data-testid="share-btn"
+          onClick={ handleClick }
         >
           <Share
             data-testid="share-btn"
             alt="Icone de compartilhamento"
           />
         </button>
-        <button type="button">
+        <button type="button" data-testid="favorite-btn">
           <Favorites
             data-testid="favorite-btn"
             alt="Icone de favoritar"
           />
         </button>
       </div>
+      {isLinkCopied ? <p>Link copied!</p> : null}
       <p data-testid="recipe-category">
         { foodOrDrink === 'foods' ? newData.strCategory : newData.strAlcoholic }
       </p>
