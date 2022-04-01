@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import Button from '../components/Button';
 import CardDetails from '../components/CardDetails';
 import { DoneRecipesStore } from '../helpers/VerifyLocalStorage';
-import Button from '../components/Button';
 import { getByType, getRecommendations } from '../services/IDApi';
-
 
 const LIMITED_OPTIONS = 5;
 
