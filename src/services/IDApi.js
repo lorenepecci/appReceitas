@@ -1,13 +1,15 @@
 export const getByType = async (id, foodOrDrink) => {
-  let data;
+  let result;
   if (foodOrDrink === 'foods') {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-    data = response.json();
+    const data = response.json();
+    result = data;
   } else if (foodOrDrink === 'drinks') {
     const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-    data = response.json();
+    const data = response.json();
+    result = data;
   }
-  return data;
+  return result;
 };
 
 export const getRecommendations = async (foodOrDrink) => {

@@ -14,6 +14,12 @@ const Provider = ({ children }) => {
 
   const [loginButtonDissabled, setLoginButtonDissabled] = useState(true);
 
+  const [dataDetailed, setDataDetailed] = useState([]);
+
+  const [getResult, setGetResult] = useState(false);
+
+  const [listOfIngredients, setListOfIngredients] = useState([]);
+
   const contextData = {
     isFromIngredientsExplore,
     setIsFromIngredientsExplore,
@@ -27,6 +33,12 @@ const Provider = ({ children }) => {
     setUserInfos,
     loginButtonDissabled,
     setLoginButtonDissabled,
+    dataDetailed,
+    setDataDetailed,
+    getResult,
+    setGetResult,
+    listOfIngredients,
+    setListOfIngredients,
   };
 
   return (
