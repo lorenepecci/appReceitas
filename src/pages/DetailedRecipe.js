@@ -32,6 +32,17 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
           DetailedRecipe
         </h1>
       </span>
+      <Button
+        datatestid="share-btn"
+        className="btn-share"
+        text="compartilhar"
+      />
+      <Button
+        datatestid="favorite-btn"
+        className="btn-favorite"
+        text="Favoritar"
+      />
+
       <ul className="last-receitas pre_con">
         {optionsRecommendations.map((options, index) => (
           <li key={ index } className="pre-card">
