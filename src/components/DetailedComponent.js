@@ -3,6 +3,8 @@ import Context from '../context/Context';
 import Favorites from './Favorites';
 import Share from './Share';
 
+const copy = require('clipboard-copy');
+
 function DetailedComponent() {
   const {
     dataDetailed,
@@ -36,14 +38,17 @@ function DetailedComponent() {
         <h2 data-testid="recipe-title">
           { newData.strMeal || newData.strDrink }
         </h2>
-        <button type="button">
-          <Favorites
+        <button
+          type="button"
+          onClick={ () => copy('Link copied!') }
+        >
+          <Share
             data-testid="share-btn"
             alt="Icone de compartilhamento"
           />
         </button>
         <button type="button">
-          <Share
+          <Favorites
             data-testid="favorite-btn"
             alt="Icone de favoritar"
           />

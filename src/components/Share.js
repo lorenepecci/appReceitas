@@ -4,11 +4,13 @@ import ShareIcon from '../images/shareIcon.svg';
 
 export default function Share({ datatestid, alt }) {
   return (
-    <img
-      data-testid={ datatestid }
-      src={ ShareIcon }
-      alt={ alt }
-    />
+    <div>
+      <img
+        data-testid={ datatestid }
+        src={ ShareIcon }
+        alt={ alt }
+      />
+    </div>
   );
 }
 
