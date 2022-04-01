@@ -25,3 +25,9 @@ export const InProgressRecipesStore = (type, id) => {
 };
 
 // Referencia para frunção InProgressRecipesStore: https://eslint.org/docs/rules/no-prototype-builtins
+
+export const verifyFavorites = (id) => {
+  const resultLocalStore = getlocalStorage('favoriteRecipes');
+  return resultLocalStore
+    ? resultLocalStore.some((item) => item.id === id) : false;
+};

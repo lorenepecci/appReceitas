@@ -17,14 +17,12 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
     setDataDetailed,
     getResult,
     setGetResult,
+    setIDDetails,
   } = useContext(Context);
 
   const inProgressRecipes = InProgressRecipesStore(foodOrDrink, id)
     ? 'Continue Recipe' : 'Start Recipe';
 
-  // button.addEventListener('click', () => {
-  //   copy('This is some cool text');
-  // });
   useEffect(() => {
     async function fetchData() {
       const response = await getByType(id, foodOrDrink);
@@ -33,6 +31,7 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
       setGetResult(true);
     }
     fetchData();
+    setIDDetails(id);
   }, [foodOrDrink, id, setDataDetailed, setGetResult]);
 
   useEffect(() => {
