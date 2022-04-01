@@ -49,6 +49,8 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
           datatestid="start-recipe-btn"
           className="btn-start"
           text={ inProgressRecipes }
+          id={ id }
+          type={ foodOrDrink }
 
         /> : ''}
       </span>
