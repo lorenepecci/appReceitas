@@ -8,8 +8,6 @@ const copy = require('clipboard-copy');
 function DetailedComponent() {
   const {
     dataDetailed,
-    // listOfIngredients,
-    // setListOfIngredients,
   } = useContext(Context);
 
   const newData = dataDetailed[0];
@@ -21,10 +19,8 @@ function DetailedComponent() {
   const filteredKeys = Object.keys(newData).filter((key) => key.match(strIngredient))
     .reduce((obj, key) => {
       obj[key] = newData[key];
-      // return obj;
       return removeEmptyFilter(obj);
     }, {});
-  console.log('results', newData);
 
   return (
     <div>

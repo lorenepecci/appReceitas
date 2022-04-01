@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import Context from '../context/Context';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { verifyFavorites } from '../helpers/VerifyLocalStorage';
 
 export default function Favorites({ datatestid, alt }) {
-  const [isCopied, setIsCopied] = useState(false);
+  const { idDetails } = useContext(Context);
+  const [isCopied, setIsCopied] = useState(verifyFavorites(idDetails));
   function handleClick(state) {
-    console.log(state);
     setIsCopied(state);
   }
   return (
