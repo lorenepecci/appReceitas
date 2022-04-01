@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import CardDetails from '../components/CardDetails';
-import { DoneRecipesStore } from '../helpers/VerifyLocalStorage';
-import Button from '../components/Button';
+// import { DoneRecipesStore } from '../helpers/VerifyLocalStorage';
+// import Button from '../components/Button';
 import { getByType, getRecommendations } from '../services/IDApi';
-
 
 const LIMITED_OPTIONS = 5;
 
@@ -41,14 +40,14 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
           </li>
         ))}
       </ul>
-      <span className="container-btn-start">
+      {/* <span className="container-btn-start">
         {!DoneRecipesStore(id) ? <Button
           datatestid="start-recipe-btn"
           className="btn-start"
           text="Start Recipe"
 
         /> : ''}
-      </span>
+      </span> */}
     </div>
   );
 }
