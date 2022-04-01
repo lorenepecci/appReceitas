@@ -22,7 +22,7 @@ function DetailedComponent() {
       // return obj;
       return removeEmptyFilter(obj);
     }, {});
-  console.log('fim', newData);
+  console.log('results', newData);
 
   return (
     <div>
@@ -36,12 +36,10 @@ function DetailedComponent() {
         <h2 data-testid="recipe-title">
           { newData.strMeal || newData.strDrink }
         </h2>
-        <button type="button">
-          <Favorites
-            data-testid="share-btn"
-            alt="Icone de compartilhamento"
-          />
-        </button>
+        <Favorites
+          data-testid="share-btn"
+          alt="Icone de compartilhamento"
+        />
         <button type="button">
           <Share
             data-testid="favorite-btn"
