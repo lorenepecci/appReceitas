@@ -1,30 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 
-export default function Favorites({ datatestid, className, text, id, type }) {
+export default function Favorites({ datatestid, alt }) {
   return (
-    <Link to={ `/${type}/${id}/in-progress` }>
-      <button
-        data-testid={ datatestid }
-        type="button"
-        className={ className }
-      >
-        {text}
-      </button>
-    </Link>
+    <img
+      data-testid={ datatestid }
+      src={ WhiteHeartIcon }
+      alt={ alt }
+    />
   );
 }
 
 Favorites.propTypes = {
-  className: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
   datatestid: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  id: PropTypes.string,
-  type: PropTypes.string,
-};
-
-Favorites.defaultProps = {
-  id: '',
-  type: '',
 };
