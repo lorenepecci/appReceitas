@@ -42,5 +42,5 @@ export default function Header({ title, showSearchIcon, foodOrDrink }) {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   showSearchIcon: PropTypes.bool.isRequired,
-  foodOrDrink: PropTypes.bool.isRequired,
+  foodOrDrink: PropTypes.string.isRequired,
 };

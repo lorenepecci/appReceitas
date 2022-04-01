@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Context from '../context/Context';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { verifyFavorites } from '../helpers/VerifyLocalStorage';
+import SaveFavorites from '../helpers/SaveFavorites';
 
 export default function Favorites({ datatestid, alt, foodOrDrink }) {
   const { dataDetailed, setfavorite, idDetails } = useContext(Context);

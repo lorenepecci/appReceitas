@@ -33,6 +33,6 @@ export default function MapCards({ list, foodOrDrink }) {
   );
 }
 MapCards.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.obejcts).isRequired,
   foodOrDrink: PropTypes.string.isRequired,
+  list: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

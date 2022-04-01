@@ -9,7 +9,8 @@ const copy = require('clipboard-copy');
 function DetailedComponent({ foodOrDrink }) {
   const {
     dataDetailed,
-
+    listOfIngredients,
+    setListOfIngredients,
   } = useContext(Context);
 
   const [isLinkCopied, setIsLinkCopied] = useState(false);
