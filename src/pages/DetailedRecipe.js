@@ -5,7 +5,6 @@ import { DoneRecipesStore } from '../helpers/VerifyLocalStorage';
 import Button from '../components/Button';
 import { getByType, getRecommendations } from '../services/IDApi';
 
-
 const LIMITED_OPTIONS = 5;
 
 export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } }) {
