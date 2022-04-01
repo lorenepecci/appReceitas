@@ -1,28 +1,27 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+// import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import getlocalStorage from '../helpers/getLocalStore';
 import { mokStorage } from '../helpers/createLocalStorage';
 
 export default function DoneRecipes() {
   const [listCategories, setListCategories] = useState('all');
-  mokStorage();
+  // const filterByTypeRecipe = () => {
+  //   if (listCategories === 'food') {
+  //     return dataDoneRecipe
+  //       .filter((data) => data.type === 'food');
+  //   }
+  //   if (listCategories === 'food') {
+  //     return dataDoneRecipe
+  //       .filter((data) => data.type === 'drink');
+  //   }
+  // };
+
+  useEffect(() => {
+    mokStorage();
+  }, []);
   const dataDoneRecipe = getlocalStorage('doneRecipes');
-  console.log(dataDoneRecipe);
-
-  // useEffect(() => {
-  const filterByTypeRecipe = () => {
-    if (listCategories === 'food') {
-      return dataDoneRecipe
-        .filter((data) => data.type === 'food');
-    }
-    if (listCategories === 'food') {
-      return dataDoneRecipe
-        .filter((data) => data.type === 'drink');
-    }
-    // }, []);
-  };
-
+  console.log('aaaaa', dataDoneRecipe);
   return (
     <div>
       <Header title="Done Recipes" />
@@ -50,7 +49,7 @@ export default function DoneRecipes() {
         </button>
       </div>
       <div>
-        { filterByTypeRecipe().map((item, index) => (
+        {/* { filterByTypeRecipe().map((item, index) => (
           <div key={ index }>
             <Link
               to={ item.image === 'food'
@@ -71,7 +70,7 @@ export default function DoneRecipes() {
               }
             </p>
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );
