@@ -2,23 +2,26 @@ import getlocalStorage from './getLocalStore';
 
 export const DoneRecipesStore = (id) => {
   const doneRecipes = getlocalStorage('doneRecipes');
-  return doneRecipes.some((item) => item.id === id);
+  return doneRecipes
+    ? doneRecipes.some((item) => item.id === id) : false;
 };
 
-export const InProgressRecipesStore = (page, id) => {
+export const InProgressRecipesStore = (type, id) => {
   let results;
-  if (page === 'drinks') {
-    const inProgressDrinks = getlocalStorage('inProgressRecipes')
-      .map((item) => item.cocktails.id);
-    for (let i = 0; i <= inProgressDrinks.length; i += 1) {
-      results = inProgressDrinks.some((item) => item[i] === id);
+  if (type === 'drinks') {
+    const inProgressMeals = getlocalStorage('inProgressRecipes');
+    if (inProgressMeals) {
+      const { cocktails } = inProgressMeals;
+      results = Object.prototype.hasOwnProperty.call(cocktails, id);
     }
-  } else if (page === 'foods') {
-    const inProgressMeals = getlocalStorage('inProgressRecipes')
-      .map((item) => item.meals.id);
-    for (let i = 0; i <= inProgressMeals.length; i += 1) {
-      results = inProgressMeals.some((item) => item[i] === id);
+  } else if (type === 'foods') {
+    const inProgressMeals = getlocalStorage('inProgressRecipes');
+    if (inProgressMeals) {
+      const { meals } = inProgressMeals;
+      results = Object.prototype.hasOwnProperty.call(meals, id);
     }
   }
   return results;
 };
+
+// Referencia para frunção InProgressRecipesStore: https://eslint.org/docs/rules/no-prototype-builtins
