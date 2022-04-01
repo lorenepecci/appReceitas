@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
 import Context from '../context/Context';
 import Favorites from './Favorites';
 import Share from './Share';
 
-function DetailedComponent() {
+function DetailedComponent({ foodOrDrink }) {
   const {
     dataDetailed,
-    // listOfIngredients,
-    // setListOfIngredients,
+    listOfIngredients,
+    setListOfIngredients,
   } = useContext(Context);
 
   const newData = dataDetailed[0];
@@ -15,14 +16,25 @@ function DetailedComponent() {
   const removeEmptyFilter = (obj) => Object
     .fromEntries(Object.entries(obj).filter(([, v]) => v != null && v !== ''));
 
-  const strIngredient = 'strIngredient';
-  const filteredKeys = Object.keys(newData).filter((key) => key.match(strIngredient))
-    .reduce((obj, key) => {
-      obj[key] = newData[key];
-      // return obj;
-      return removeEmptyFilter(obj);
-    }, {});
-  console.log('fim', newData);
+  useEffect(() => {
+    const strIngredient = 'strIngredient';
+    const filteredIng = Object.keys(newData).filter((key) => key.match(strIngredient))
+      .reduce((obj, key) => {
+        obj[key] = newData[key];
+        // return obj;
+        return removeEmptyFilter(obj);
+      }, {});
+    const strMeasure = 'strMeasure';
+    const filteredMeasure = Object.keys(newData).filter((key) => key.match(strMeasure))
+      .reduce((obj, key) => {
+        obj[key] = newData[key];
+        return removeEmptyFilter(obj);
+      }, {});
+    setListOfIngredients({
+      ingredients: filteredIng,
+      measure: filteredMeasure,
+    });
+  }, [newData, setListOfIngredients]);
 
   return (
     <div>
@@ -50,18 +62,20 @@ function DetailedComponent() {
         </button>
       </div>
       <p data-testid="recipe-category">
-        { newData.strCategory }
+        { foodOrDrink === 'foods' ? newData.strCategory : newData.strAlcoholic }
       </p>
       <div>
         <h3>Ingredients</h3>
-        {Object.values(filteredKeys).map((value, index) => (
-          <p
-            data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ index }
-          >
-            {value}
-          </p>
-        ))}
+        <ul>
+          {Object.values(listOfIngredients.ingredients).map((value, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ index }
+            >
+              {`${value} - ${Object.values(listOfIngredients.measure)[index]}`}
+            </li>
+          ))}
+        </ul>
       </div>
       <div>
         <h3>Instructions</h3>
@@ -72,5 +86,9 @@ function DetailedComponent() {
     </div>
   );
 }
+
+DetailedComponent.propTypes = {
+  foodOrDrink: PropTypes.string.isRequired,
+};
 
 export default DetailedComponent;
