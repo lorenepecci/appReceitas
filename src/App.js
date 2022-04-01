@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import NotFound from './components/NotFound';
 import DetailedRecipe from './pages/DetailedRecipe';
 import DoneRecipes from './pages/DoneRecipes';
 import Drinks from './pages/Drinks';
@@ -33,6 +34,7 @@ function App() {
       <Route exact path="/explore/foods/ingredients" component={ IngredientsFoods } />
       <Route exact path="/explore/drinks/ingredients" component={ IngredientsDrinks } />
       <Route exact path="/explore/foods/nationalities" component={ NationalFoods } />
+      <Route exact path="/explore/drinks/nationalities" component={ NotFound } />
       <Route exact path="/profile" component={ Profile } />
       <Route exact path="/done-recipes" component={ DoneRecipes } />
       <Route exact path="/favorite-recipes" component={ Favorites } />

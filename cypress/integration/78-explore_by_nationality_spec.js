@@ -120,7 +120,7 @@ describe('80 - Implemente o dropdown de maneira que devem estar disponíveis tod
   });
 });
 
-describe('81 - Implemente a rota que deve ser apenas `/explore/foods/nationalities`', () => {
+describe.only('81 - Implemente a rota que deve ser apenas `/explore/foods/nationalities`', () => {
   it('Ao acessar a rota `/explore/drinks/nationalities` ela retorna um erro de "Not Found"', () => {
     cy.visit('http://localhost:3000/explore/drinks/nationalities');
 
