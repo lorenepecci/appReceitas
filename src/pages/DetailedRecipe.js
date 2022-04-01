@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import CardDetails from '../components/CardDetails';
-import { DoneRecipesStore } from '../helpers/VerifyLocalStorage';
+import { DoneRecipesStore, InProgressRecipesStore } from '../helpers/VerifyLocalStorage';
 import Button from '../components/Button';
 import { getByType, getRecommendations } from '../services/IDApi';
-
 
 const LIMITED_OPTIONS = 5;
 
 export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } }) {
   const [optionsRecommendations, setRecommendations] = useState([]);
-
+  const inProgressRecipes = InProgressRecipesStore(foodOrDrink, id)
+    ? 'Continue Recipe' : 'Start Recipe';
   useEffect(() => {
     const fetchData = async () => {
       const response = await getByType(id, foodOrDrink);
@@ -27,8 +27,11 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
   }, [foodOrDrink, id]);
   return (
     <div>
-      DetailedRecipe
-      {id}
+      <span className="title-DetailedRecipe">
+        <h1>
+          DetailedRecipe
+        </h1>
+      </span>
       <ul className="last-receitas pre_con">
         {optionsRecommendations.map((options, index) => (
           <li key={ index } className="pre-card">
@@ -45,7 +48,7 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
         {!DoneRecipesStore(id) ? <Button
           datatestid="start-recipe-btn"
           className="btn-start"
-          text="Start Recipe"
+          text={ inProgressRecipes }
 
         /> : ''}
       </span>

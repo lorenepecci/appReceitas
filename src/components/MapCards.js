@@ -6,7 +6,6 @@ export default function MapCards({ list, foodOrDrink }) {
   return (
 
     <div className="container-items">
-      {console.log(list)}
       { list.map((item, index) => (
         <div key={ index }>
           { foodOrDrink === 'food'
