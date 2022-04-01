@@ -43,12 +43,12 @@ function DetailedComponent() {
           onClick={ () => copy('Link copied!') }
         >
           <Share
-            data-testid="share-btn"
+            datatestid="share-btn"
             alt="Icone de compartilhamento"
           />
         </button>
         <Favorites
-          data-testid="favorite-btn"
+          datatestid="favorite-btn"
           alt="Icone de favoritar"
         />
       </div>
