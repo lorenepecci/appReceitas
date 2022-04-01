@@ -10,12 +10,16 @@ export const InProgressRecipesStore = (type, id) => {
   let results;
   if (type === 'drinks') {
     const inProgressMeals = getlocalStorage('inProgressRecipes');
-    const { cocktails } = inProgressMeals;
-    results = Object.prototype.hasOwnProperty.call(cocktails, id);
+    if (inProgressMeals) {
+      const { cocktails } = inProgressMeals;
+      results = Object.prototype.hasOwnProperty.call(cocktails, id);
+    }
   } else if (type === 'foods') {
     const inProgressMeals = getlocalStorage('inProgressRecipes');
-    const { meals } = inProgressMeals;
-    results = Object.prototype.hasOwnProperty.call(meals, id);
+    if (inProgressMeals) {
+      const { meals } = inProgressMeals;
+      results = Object.prototype.hasOwnProperty.call(meals, id);
+    }
   }
   return results;
 };
