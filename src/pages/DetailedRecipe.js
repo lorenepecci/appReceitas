@@ -22,9 +22,6 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
   const inProgressRecipes = InProgressRecipesStore(foodOrDrink, id)
     ? 'Continue Recipe' : 'Start Recipe';
 
-  // button.addEventListener('click', () => {
-  //   copy('This is some cool text');
-  // });
   useEffect(() => {
     async function fetchData() {
       const response = await getByType(id, foodOrDrink);

@@ -38,7 +38,7 @@ function DetailedComponent({ foodOrDrink }) {
       ingredients: filteredIng,
       measure: filteredMeasure,
     });
-  }, [newData, setListOfIngredients]);
+  }, [foodOrDrink, newData, setListOfIngredients]);
 
   const handleClick = () => {
     copy(window.location.href);
@@ -63,16 +63,15 @@ function DetailedComponent({ foodOrDrink }) {
           onClick={ handleClick }
         >
           <Share
-            data-testid="share-btn"
+            datatestid="share-btn"
             alt="Icone de compartilhamento"
           />
         </button>
-        <button type="button" data-testid="favorite-btn">
-          <Favorites
-            data-testid="favorite-btn"
-            alt="Icone de favoritar"
-          />
-        </button>
+        <Favorites
+          datatestid="favorite-btn"
+          alt="Icone de favoritar"
+          foodOrDrink={ foodOrDrink }
+        />
       </div>
       {isLinkCopied ? <p>Link copied!</p> : null}
       <p data-testid="recipe-category">

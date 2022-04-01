@@ -6,7 +6,7 @@ export default function Share({ datatestid, alt }) {
   return (
     <div>
       <img
-        data-testid={ datatestid }
+        datatestid={ datatestid }
         src={ ShareIcon }
         alt={ alt }
       />
