@@ -18,7 +18,10 @@ const Provider = ({ children }) => {
 
   const [getResult, setGetResult] = useState(false);
 
-  const [listOfIngredients, setListOfIngredients] = useState([]);
+  const [listOfIngredients, setListOfIngredients] = useState({
+    ingredients: {},
+    measure: {},
+  });
 
   const contextData = {
     isFromIngredientsExplore,

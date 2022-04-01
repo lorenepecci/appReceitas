@@ -64,9 +64,9 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
       />
 
       {getResult
-        ? <DetailedComponent /> : <p>Carregando...</p>}
+        ? <DetailedComponent foodOrDrink={ foodOrDrink } /> : <p>Carregando...</p>}
       {getResult && foodOrDrink === 'foods'
-        ? <EmbededVideo embedLink={ dataDetailed[0].strYoutube } /> : <p>n</p>}
+        ? <EmbededVideo embedLink={ dataDetailed[0].strYoutube } /> : null}
       <ul className="last-receitas pre_con">
         {optionsRecommendations.map((options, index) => (
           <li key={ index } className="pre-card">
