@@ -7,11 +7,26 @@ export default function MapCards({ list, foodOrDrink }) {
 
     <div className="container-items">
       { list.map((item, index) => (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
+        <div key={ index }>
           { foodOrDrink === 'food'
-            ? <Card name={ item.strMeal } index={ index } img={ item.strMealThumb } />
+            ? (
+              <Card
+                name={ item.strMeal }
+                index={ index }
+                img={ item.strMealThumb }
+                id={ item.idMeal }
+                foodOrDrink={ foodOrDrink }
+              />)
 
-            : <Card name={ item.strDrink } index={ index } img={ item.strDrinkThumb } /> }
+            : (
+
+              <Card
+                name={ item.strDrink }
+                index={ index }
+                img={ item.strDrinkThumb }
+                id={ item.idDrink }
+                foodOrDrink={ foodOrDrink }
+              />)}
         </div>
       ))}
     </div>

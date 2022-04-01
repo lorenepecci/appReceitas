@@ -9,6 +9,8 @@ const Provider = ({ children }) => {
   });
   const [foodCards, setFoodCards] = useState([]);
   const [drinkCards, setDrinkCards] = useState([]);
+  const [urlForFetch, setUrlForFetch] = useState('');
+  const [isFromIngredientsExplore, setIsFromIngredientsExplore] = useState(false);
 
   const [loginButtonDissabled, setLoginButtonDissabled] = useState(true);
 
@@ -19,6 +21,10 @@ const Provider = ({ children }) => {
   const [listOfIngredients, setListOfIngredients] = useState([]);
 
   const contextData = {
+    isFromIngredientsExplore,
+    setIsFromIngredientsExplore,
+    urlForFetch,
+    setUrlForFetch,
     drinkCards,
     setDrinkCards,
     foodCards,

@@ -3,8 +3,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { getByType, getRecommendations } from '../services/IDApi';
 import CardDetails from '../components/CardDetails';
 import DetailedComponent from '../components/DetailedComponent';
+import { DoneRecipesStore, InProgressRecipesStore } from '../helpers/VerifyLocalStorage';
 import Context from '../context/Context';
 import EmbededVideo from '../components/EmbededVideo';
+import Button from '../components/Button';
 
 const LIMITED_OPTIONS = 5;
 
@@ -17,6 +19,8 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
     setGetResult,
   } = useContext(Context);
 
+  const inProgressRecipes = InProgressRecipesStore(foodOrDrink, id)
+    ? 'Continue Recipe' : 'Start Recipe';
   useEffect(() => {
     async function fetchData() {
       const response = await getByType(id, foodOrDrink);
@@ -34,14 +38,14 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
       setRecommendations(results.filter((_item, index) => index <= LIMITED_OPTIONS));
     };
     fetchRecommendations();
-  }, [foodOrDrink, id, setDataDetailed]);
-
-  console.log('data1', dataDetailed, 'recomend', optionsRecommendations);
-
+  }, [foodOrDrink, id]);
   return (
     <div>
-      DetailedRecipe
-      {id}
+      <span className="title-DetailedRecipe">
+        <h1>
+          DetailedRecipe
+        </h1>
+      </span>
       {getResult
         ? <DetailedComponent /> : <p>Carregando...</p>}
       {getResult && foodOrDrink === 'foods'
@@ -59,14 +63,14 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
         ))}
       </ul>
       <span className="container-btn-start">
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
+        {!DoneRecipesStore(id) ? <Button
+          datatestid="start-recipe-btn"
           className="btn-start"
-        >
-          Start Recipe
+          text={ inProgressRecipes }
+          id={ id }
+          type={ foodOrDrink }
 
-        </button>
+        /> : ''}
       </span>
     </div>
   );

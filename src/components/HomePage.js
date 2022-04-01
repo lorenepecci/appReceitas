@@ -6,16 +6,17 @@ import MapCards from './MapCards';
 export default function HomePage({ foodOrDrink }) {
   const { foodCards, setFoodCards } = useContext(Context);
   const { drinkCards, setDrinkCards } = useContext(Context);
-  const [urlForFetch, setUrlForFetch] = useState('');
+  const { urlForFetch, setUrlForFetch } = useContext(Context);
   const [listCategories, setListCategories] = useState([{ strCategory: 'All' }]);
   const [previousCategorie, setPreviousCategorie] = useState('All');
+  const { isFromIngredientsExplore } = useContext(Context);
 
   const URLCategoriesFood = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const URLCategoriesDrink = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const URLstartFood = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const URLstartDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-  const magicFor = 6;
+  const magicSix = 6;
   const magicTwelve = 12;
 
   const URLCategories = () => {
@@ -77,7 +78,13 @@ export default function HomePage({ foodOrDrink }) {
     }
   };
 
-  useEffect(() => { fetchByFilters(URLstart()); apiCategories(); }, []);
+  useEffect(() => {
+    if (isFromIngredientsExplore) {
+      setUrlForFetch(urlForFetch);
+    } else {
+      setUrlForFetch(URLstart);
+    } apiCategories();
+  }, []);
   useEffect(() => { fetchByFilters(urlForFetch); }, [urlForFetch]);
 
   const onChangeCardsForCategory = (category) => {
@@ -104,7 +111,7 @@ export default function HomePage({ foodOrDrink }) {
     <div>
       <div className="container-header">
         { listCategories.length
-            && listCategories.filter((_, index) => index < magicFor)
+            && listCategories.filter((_, index) => index < magicSix)
               .map((category, i) => (
                 <button
                   key={ i }

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
+import MapCards from './MapCards';
 
 export default function SearchBar({ foodOrDrink }) {
   const history = useHistory();
@@ -11,8 +12,8 @@ export default function SearchBar({ foodOrDrink }) {
     name: false,
     firstLetter: false,
   });
-  const { setFoodCards } = useContext(Context);
-  const { setDrinkCards } = useContext(Context);
+  const { foodCards, setFoodCards } = useContext(Context);
+  const { drinkCards, setDrinkCards } = useContext(Context);
 
   const onInputChange = ({ target }) => {
     const { name, value } = target;
@@ -139,12 +140,12 @@ export default function SearchBar({ foodOrDrink }) {
         Search
       </button>
 
-      {/*  { foodCards.length && (
+      { foodCards.length && (
         <MapCards list={ foodCards } foodOrDrink={ foodOrDrink } />
       ) }
       { drinkCards.length && (
         <MapCards list={ drinkCards } foodOrDrink={ foodOrDrink } />
-      ) } */}
+      ) }
     </div>
   );
 }
