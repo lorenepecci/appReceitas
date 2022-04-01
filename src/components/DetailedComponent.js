@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Context from '../context/Context';
-import ShareIcon from '../images/shareIcon.svg';
-import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
+import Favorites from './Favorites';
+import Share from './Share';
 
 function DetailedComponent() {
   const {
@@ -37,16 +37,14 @@ function DetailedComponent() {
           { newData.strMeal || newData.strDrink }
         </h2>
         <button type="button">
-          <img
+          <Favorites
             data-testid="share-btn"
-            src={ ShareIcon }
             alt="Icone de compartilhamento"
           />
         </button>
         <button type="button">
-          <img
+          <Share
             data-testid="favorite-btn"
-            src={ WhiteHeartIcon }
             alt="Icone de favoritar"
           />
         </button>

@@ -20,6 +20,11 @@ Button.propTypes = {
   className: PropTypes.string.isRequired,
   datatestid: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  type: PropTypes.string,
+};
+
+Button.defaultProps = {
+  id: '',
+  type: '',
 };

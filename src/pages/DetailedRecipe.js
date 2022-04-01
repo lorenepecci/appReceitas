@@ -4,6 +4,8 @@ import { getByType, getRecommendations } from '../services/IDApi';
 import CardDetails from '../components/CardDetails';
 import DetailedComponent from '../components/DetailedComponent';
 import { DoneRecipesStore, InProgressRecipesStore } from '../helpers/VerifyLocalStorage';
+import Share from '../components/Share';
+import Favorites from '../components/Favorites';
 import Context from '../context/Context';
 import EmbededVideo from '../components/EmbededVideo';
 import Button from '../components/Button';
@@ -21,6 +23,10 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
 
   const inProgressRecipes = InProgressRecipesStore(foodOrDrink, id)
     ? 'Continue Recipe' : 'Start Recipe';
+
+  // button.addEventListener('click', () => {
+  //   copy('This is some cool text');
+  // });
   useEffect(() => {
     async function fetchData() {
       const response = await getByType(id, foodOrDrink);
@@ -46,6 +52,17 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
           DetailedRecipe
         </h1>
       </span>
+      <Share
+        datatestid="share-btn"
+        className="btn-share"
+        text="compartilhar"
+      />
+      <Favorites
+        datatestid="favorite-btn"
+        className="btn-favorite"
+        text="Favoritar"
+      />
+
       {getResult
         ? <DetailedComponent /> : <p>Carregando...</p>}
       {getResult && foodOrDrink === 'foods'
