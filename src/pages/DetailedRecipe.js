@@ -17,6 +17,7 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
     setDataDetailed,
     getResult,
     setGetResult,
+    setIDDetails,
   } = useContext(Context);
 
   const inProgressRecipes = InProgressRecipesStore(foodOrDrink, id)
@@ -30,6 +31,7 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
       setGetResult(true);
     }
     fetchData();
+    setIDDetails(id);
   }, [foodOrDrink, id, setDataDetailed, setGetResult]);
 
   useEffect(() => {

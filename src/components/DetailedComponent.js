@@ -9,8 +9,7 @@ const copy = require('clipboard-copy');
 function DetailedComponent({ foodOrDrink }) {
   const {
     dataDetailed,
-    listOfIngredients,
-    setListOfIngredients,
+
   } = useContext(Context);
 
   const [isLinkCopied, setIsLinkCopied] = useState(false);
@@ -38,7 +37,7 @@ function DetailedComponent({ foodOrDrink }) {
       ingredients: filteredIng,
       measure: filteredMeasure,
     });
-  }, [foodOrDrink, newData, setListOfIngredients]);
+  }, [foodOrDrink, newData]);
 
   const handleClick = () => {
     copy(window.location.href);

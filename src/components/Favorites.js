@@ -1,21 +1,29 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect } from 'react';
-import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
-import SaveFavorites from '../helpers/SaveFavorites';
+import React, { useState, useContext } from 'react';
 import Context from '../context/Context';
+import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { verifyFavorites } from '../helpers/VerifyLocalStorage';
 
 export default function Favorites({ datatestid, alt, foodOrDrink }) {
-  const { dataDetailed, setfavorite } = useContext(Context);
+  const { dataDetailed, setfavorite, idDetails } = useContext(Context);
+  const [isCopied, setIsCopied] = useState(verifyFavorites(idDetails));
+  function handleClick(state) {
+    setIsCopied(state);
+  }
   useEffect(() => {
     const newData = dataDetailed[0];
     const test = SaveFavorites(newData, foodOrDrink);
     setfavorite(test);
   }, [dataDetailed, foodOrDrink, setfavorite]);
   return (
-    <button type="button" data-testid="favorite-btn">
+    <button
+      type="button"
+      onClick={ () => { handleClick(!isCopied); } }
+    >
       <img
-        datatestid={ datatestid }
-        src={ WhiteHeartIcon }
+        data-testid={ datatestid }
+        src={ isCopied ? blackHeartIcon : WhiteHeartIcon }
         alt={ alt }
       />
     </button>

@@ -4,6 +4,8 @@ import Context from './Context';
 
 const Provider = ({ children }) => {
   const [favorites, setfavorite] = useState({});
+  const [idDetails, setIDDetails] = useState('');
+
   const [userInfos, setUserInfos] = useState({
     email: '',
     password: '',
@@ -45,6 +47,8 @@ const Provider = ({ children }) => {
     setListOfIngredients,
     favorites,
     setfavorite,
+    idDetails,
+    setIDDetails,
   };
 
   return (

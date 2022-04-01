@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
 
@@ -71,7 +71,6 @@ export default function SearchBar({ foodOrDrink }) {
         setFoodCards(data.meals.filter((_i, index) => index < magicTwelve));
       }
     } else if (data.drinks) {
-      console.log(data.drinks);
       if (data.drinks.length === 1) {
         history.push(`/drinks/${data.drinks[0].idDrink}`);
       } else {
@@ -82,12 +81,7 @@ export default function SearchBar({ foodOrDrink }) {
       setFoodCards(false);
       setDrinkCards(false);
     }
-    console.log(data.drinks);
   };
-
-  useEffect(() => {
-    console.log('estou aq');
-  }, []);
 
   return (
     <div>
