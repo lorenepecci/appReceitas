@@ -16,7 +16,6 @@ import InProgress from './pages/InProgress';
 import Login from './pages/Login';
 import NationalFoods from './pages/NationalFoods';
 import Profile from './pages/Profile';
-import NotFound from './pages/NotFound';
 
 function App() {
   return (
