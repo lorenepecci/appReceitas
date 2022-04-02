@@ -12,11 +12,10 @@ import Foods from './pages/Foods';
 import IngredientsDrinks from './pages/IngredientsDrinks';
 import IngredientsFoods from './pages/IngredientsFoods';
 import InProgress from './pages/InProgress';
-// import DetailsFoods from './DetailsFoods';
-// import DetailsDrinks from './DetailsDrinks';
 import Login from './pages/Login';
 import NationalFoods from './pages/NationalFoods';
 import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -47,6 +46,7 @@ function App() {
           (props) => <InProgress { ...props } />
         }
       />
+      <Route component={ NotFound } />
     </Switch>
   );
 }
