@@ -5,7 +5,6 @@ import Context from './Context';
 const Provider = ({ children }) => {
   const [favorites, setfavorite] = useState({});
   const [idDetails, setIDDetails] = useState('');
-  console.log('Provider', idDetails);
 
   const [userInfos, setUserInfos] = useState({
     email: '',

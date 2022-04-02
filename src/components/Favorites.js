@@ -11,6 +11,7 @@ export default function Favorites({ datatestid, alt, foodOrDrink }) {
   const { dataDetailed, setfavorite, idDetails, favorites } = useContext(Context);
   const isFavorite = verifyFavorites(idDetails);
   const [isCopied, setIsCopied] = useState(isFavorite);
+
   function handleClick(state) {
     const result = setIsCopied(state);
     if (!isCopied) {
@@ -21,9 +22,11 @@ export default function Favorites({ datatestid, alt, foodOrDrink }) {
     return result;
   }
   useEffect(() => {
+    setIsCopied(isFavorite);
     const newData = dataDetailed[0];
-    setfavorite(SaveFavorites(newData, foodOrDrink));
-  }, [dataDetailed, foodOrDrink, setfavorite]);
+    const newType = foodOrDrink.substring(0, foodOrDrink.length - 1);
+    setfavorite(SaveFavorites(newData, newType));
+  }, [dataDetailed, foodOrDrink, isFavorite, setfavorite]);
   return (
     <button
       type="button"
