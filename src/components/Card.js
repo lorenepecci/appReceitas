@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 export default function Card({ index, name, img, id, foodOrDrink }) {
   return (
     <div key={ index } data-testid={ `${index}-recipe-card` }>
-      { console.log(foodOrDrink, 'rota') }
       <h1 data-testid={ `${index}-card-name` }>{ name }</h1>
       <Link to={ `/${foodOrDrink}s/${id}` }>
         <img

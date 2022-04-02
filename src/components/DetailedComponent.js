@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
@@ -9,7 +10,8 @@ const copy = require('clipboard-copy');
 function DetailedComponent({ foodOrDrink }) {
   const {
     dataDetailed,
-
+    listOfIngredients,
+    setListOfIngredients,
   } = useContext(Context);
 
   const [isLinkCopied, setIsLinkCopied] = useState(false);
@@ -18,7 +20,6 @@ function DetailedComponent({ foodOrDrink }) {
 
   const removeEmptyFilter = (obj) => Object
     .fromEntries(Object.entries(obj).filter(([, v]) => v != null && v !== ''));
-
 
   useEffect(() => {
     const strIngredient = 'strIngredient';
@@ -38,7 +39,7 @@ function DetailedComponent({ foodOrDrink }) {
       ingredients: filteredIng,
       measure: filteredMeasure,
     });
-  }, [newData, setListOfIngredients]);
+  }, [foodOrDrink, newData]);
 
   const handleClick = () => {
     copy(window.location.href);
@@ -67,12 +68,11 @@ function DetailedComponent({ foodOrDrink }) {
             alt="Icone de compartilhamento"
           />
         </button>
-
         <Favorites
           datatestid="favorite-btn"
           alt="Icone de favoritar"
+          foodOrDrink={ foodOrDrink }
         />
-
       </div>
       {isLinkCopied ? <p>Link copied!</p> : null}
       <p data-testid="recipe-category">

@@ -23,6 +23,7 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
   const inProgressRecipes = InProgressRecipesStore(foodOrDrink, id)
     ? 'Continue Recipe' : 'Start Recipe';
 
+  setIDDetails(id);
   useEffect(() => {
     async function fetchData() {
       const response = await getByType(id, foodOrDrink);

@@ -14,8 +14,6 @@ function EmbededVideo({ embedLink }) {
   const videoId = getId(embedLink);
   const iframeMarkup = `https://www.youtube.com/embed/${videoId}`;
 
-  console.log('Video ID:', videoId);
-
   return (
     <div className="video-responsive">
       <iframe
