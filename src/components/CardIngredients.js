@@ -3,37 +3,45 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
 
-export default function CardIngredients({ index, name }) {
+export default function CardIngredients({ index, name, isFood }) {
   const history = useHistory();
-  const img = `https://www.themealdb.com/images/ingredients/${name}.png`;
+  const imgFood = `https://www.themealdb.com/images/ingredients/${name}-Small.png`;
+  const imgDrink = `https://www.thecocktaildb.com/images/ingredients/${name}-Small.png`;
   const urlRecipes = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${name}`;
-  const { setFoodCards } = useContext(Context);
+  const urlRecipesDrinks = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${name}`;
+  console.log(name);
 
-  const fetchRecipes = async () => {
-    try {
-      const response = await fetch(urlRecipes);
-      const data = await response.json();
-      setFoodCards(data.meals);
-    } catch (error) {
-      return error;
+  const { setUrlForFetch } = useContext(Context);
+  const { setIsFromIngredientsExplore } = useContext(Context);
+
+  const img = () => {
+    if (isFood) {
+      return imgFood;
     }
+    return imgDrink;
   };
 
   const onHandleClick = () => {
-    console.log('loreneeeeeee');
-    fetchRecipes();
-    history.push('/foods');
+    setIsFromIngredientsExplore(true);
+    if (isFood) {
+      setUrlForFetch(urlRecipes);
+      history.push('/foods');
+    } else {
+      setUrlForFetch(urlRecipesDrinks);
+      history.push('/drinks');
+    }
   };
   return (
-    <div data-testid={ `${index}-ingredient-card` }>
+    <div>
       <h1 data-testid={ `${index}-card-name` }>{ name }</h1>
       <button
         type="button"
+        data-testid={ `${index}-ingredient-card` }
         onClick={ onHandleClick }
       >
         <img
           data-testid={ `${index}-card-img` }
-          src={ img }
+          src={ img() }
           alt="drink"
           width="50px"
         />
@@ -45,4 +53,5 @@ export default function CardIngredients({ index, name }) {
 CardIngredients.propTypes = {
   name: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  isFood: PropTypes.bool.isRequired,
 };

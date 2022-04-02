@@ -1,22 +1,41 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import CardDetails from '../components/CardDetails';
-import { DoneRecipesStore } from '../helpers/VerifyLocalStorage';
-import Button from '../components/Button';
+import React, { useState, useEffect, useContext } from 'react';
 import { getByType, getRecommendations } from '../services/IDApi';
+import CardDetails from '../components/CardDetails';
+import DetailedComponent from '../components/DetailedComponent';
+import { DoneRecipesStore, InProgressRecipesStore } from '../helpers/VerifyLocalStorage';
+import Context from '../context/Context';
+import EmbededVideo from '../components/EmbededVideo';
+import Button from '../components/Button';
 
 const LIMITED_OPTIONS = 5;
 
 export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } }) {
   const [optionsRecommendations, setRecommendations] = useState([]);
+  const {
+    dataDetailed,
+    setDataDetailed,
+    getResult,
+    setGetResult,
+  } = useContext(Context);
+
+  const inProgressRecipes = InProgressRecipesStore(foodOrDrink, id)
+    ? 'Continue Recipe' : 'Start Recipe';
+
+  // button.addEventListener('click', () => {
+  //   copy('This is some cool text');
+  // });
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getByType(id, foodOrDrink);
+      const results = response.meals ? response.meals : response.drinks;
+      setDataDetailed(results);
+      setGetResult(true);
+    }
+    fetchData();
+  }, [foodOrDrink, id, setDataDetailed, setGetResult]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await getByType(id, foodOrDrink);
-      return response;
-    };
-    fetchData();
-
     const fetchRecommendations = async () => {
       const response = await getRecommendations(foodOrDrink);
       const results = response.meals ? response.meals : response.drinks;
@@ -26,8 +45,15 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
   }, [foodOrDrink, id]);
   return (
     <div>
-      DetailedRecipe
-      {id}
+      <span className="title-DetailedRecipe">
+        <h1>
+          DetailedRecipe
+        </h1>
+      </span>
+      {getResult
+        ? <DetailedComponent foodOrDrink={ foodOrDrink } /> : <p>Carregando...</p>}
+      {getResult && foodOrDrink === 'foods'
+        ? <EmbededVideo embedLink={ dataDetailed[0].strYoutube } /> : null}
       <ul className="last-receitas pre_con">
         {optionsRecommendations.map((options, index) => (
           <li key={ index } className="pre-card">
@@ -44,7 +70,9 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
         {!DoneRecipesStore(id) ? <Button
           datatestid="start-recipe-btn"
           className="btn-start"
-          text="Start Recipe"
+          text={ inProgressRecipes }
+          id={ id }
+          type={ foodOrDrink }
 
         /> : ''}
       </span>

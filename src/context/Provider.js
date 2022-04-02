@@ -9,10 +9,25 @@ const Provider = ({ children }) => {
   });
   const [foodCards, setFoodCards] = useState([]);
   const [drinkCards, setDrinkCards] = useState([]);
+  const [urlForFetch, setUrlForFetch] = useState('');
+  const [isFromIngredientsExplore, setIsFromIngredientsExplore] = useState(false);
 
   const [loginButtonDissabled, setLoginButtonDissabled] = useState(true);
 
+  const [dataDetailed, setDataDetailed] = useState([]);
+
+  const [getResult, setGetResult] = useState(false);
+
+  const [listOfIngredients, setListOfIngredients] = useState({
+    ingredients: {},
+    measure: {},
+  });
+
   const contextData = {
+    isFromIngredientsExplore,
+    setIsFromIngredientsExplore,
+    urlForFetch,
+    setUrlForFetch,
     drinkCards,
     setDrinkCards,
     foodCards,
@@ -21,6 +36,12 @@ const Provider = ({ children }) => {
     setUserInfos,
     loginButtonDissabled,
     setLoginButtonDissabled,
+    dataDetailed,
+    setDataDetailed,
+    getResult,
+    setGetResult,
+    listOfIngredients,
+    setListOfIngredients,
   };
 
   return (
