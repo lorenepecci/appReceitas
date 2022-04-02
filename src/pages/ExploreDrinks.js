@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import FooterPages from '../components/FooterPages';
 import Header from '../components/Header';
 
-export default function ExplorerDrinks() {
+export default function ExploreDrinks() {
   const history = useHistory();
   const [listSurpriseRecipes, setListSurpriseRecipe] = useState([]);
   useEffect(() => {

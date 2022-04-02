@@ -9,8 +9,7 @@ const copy = require('clipboard-copy');
 function DetailedComponent({ foodOrDrink }) {
   const {
     dataDetailed,
-    listOfIngredients,
-    setListOfIngredients,
+
   } = useContext(Context);
 
   const [isLinkCopied, setIsLinkCopied] = useState(false);
@@ -19,6 +18,7 @@ function DetailedComponent({ foodOrDrink }) {
 
   const removeEmptyFilter = (obj) => Object
     .fromEntries(Object.entries(obj).filter(([, v]) => v != null && v !== ''));
+
 
   useEffect(() => {
     const strIngredient = 'strIngredient';
@@ -63,16 +63,16 @@ function DetailedComponent({ foodOrDrink }) {
           onClick={ handleClick }
         >
           <Share
-            data-testid="share-btn"
+            datatestid="share-btn"
             alt="Icone de compartilhamento"
           />
         </button>
-        <button type="button" data-testid="favorite-btn">
-          <Favorites
-            data-testid="favorite-btn"
-            alt="Icone de favoritar"
-          />
-        </button>
+
+        <Favorites
+          datatestid="favorite-btn"
+          alt="Icone de favoritar"
+        />
+
       </div>
       {isLinkCopied ? <p>Link copied!</p> : null}
       <p data-testid="recipe-category">

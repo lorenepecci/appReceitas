@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Context from './Context';
 
 const Provider = ({ children }) => {
+  const [idDetails, setIDDetails] = useState('');
+
   const [userInfos, setUserInfos] = useState({
     email: '',
     password: '',
@@ -42,6 +44,8 @@ const Provider = ({ children }) => {
     setGetResult,
     listOfIngredients,
     setListOfIngredients,
+    idDetails,
+    setIDDetails,
   };
 
   return (
