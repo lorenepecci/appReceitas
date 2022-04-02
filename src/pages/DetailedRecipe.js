@@ -32,6 +32,7 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
       setGetResult(true);
     }
     fetchData();
+    setIDDetails(id);
   }, [foodOrDrink, id, setDataDetailed, setGetResult, setIDDetails]);
 
   useEffect(() => {
