@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import FooterPages from '../components/FooterPages';
 import Header from '../components/Header';
