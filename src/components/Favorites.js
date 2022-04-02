@@ -5,17 +5,24 @@ import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { verifyFavorites } from '../helpers/VerifyLocalStorage';
 import SaveFavorites from '../helpers/SaveFavorites';
+import setLocalStorage from '../helpers/createLocalStorage';
 
 export default function Favorites({ datatestid, alt, foodOrDrink }) {
-  const { dataDetailed, setfavorite, idDetails } = useContext(Context);
-  const [isCopied, setIsCopied] = useState(verifyFavorites(idDetails));
+  const { dataDetailed, setfavorite, idDetails, favorites } = useContext(Context);
+  const isFavorite = verifyFavorites(idDetails);
+  const [isCopied, setIsCopied] = useState(isFavorite);
   function handleClick(state) {
-    setIsCopied(state);
+    const result = setIsCopied(state);
+    if (!isCopied) {
+      setLocalStorage('favoriteRecipes', [favorites]);
+    } else {
+      localStorage.removeItem('favoriteRecipes');
+    }
+    return result;
   }
   useEffect(() => {
     const newData = dataDetailed[0];
-    const test = SaveFavorites(newData, foodOrDrink);
-    setfavorite(test);
+    setfavorite(SaveFavorites(newData, foodOrDrink));
   }, [dataDetailed, foodOrDrink, setfavorite]);
   return (
     <button

@@ -16,3 +16,5 @@ const inProgressRecipes = {
 export function mockStore() {
   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
 }
+
+mockStore();
