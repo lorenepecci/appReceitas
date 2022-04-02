@@ -32,7 +32,7 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
     }
     fetchData();
     setIDDetails(id);
-  }, [foodOrDrink, id, setDataDetailed, setGetResult]);
+  }, [foodOrDrink, id, setDataDetailed, setGetResult, setIDDetails]);
 
   useEffect(() => {
     const fetchRecommendations = async () => {

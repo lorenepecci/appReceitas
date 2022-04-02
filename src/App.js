@@ -11,10 +11,9 @@ import Favorites from './pages/Favorites';
 import Foods from './pages/Foods';
 import IngredientsDrinks from './pages/IngredientsDrinks';
 import IngredientsFoods from './pages/IngredientsFoods';
+import InProgress from './pages/InProgress';
 // import DetailsFoods from './DetailsFoods';
 // import DetailsDrinks from './DetailsDrinks';
-import InProgressDrinks from './pages/InProgressDrinks';
-import InProgressFoods from './pages/InProgressFoods';
 import Login from './pages/Login';
 import NationalFoods from './pages/NationalFoods';
 import Profile from './pages/Profile';
@@ -24,9 +23,7 @@ function App() {
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route exact path="/foods" component={ Foods } />
-      <Route exact path="/foods/:id/in-progress" component={ InProgressFoods } />
       <Route exact path="/drinks" component={ Drinks } />
-      <Route exact path="/drinks/:id/in-progress" component={ InProgressDrinks } />
       <Route exact path="/explore" component={ Explore } />
       <Route exact path="/explore/foods" component={ ExploreFoods } />
       <Route exact path="/explore/drinks" component={ ExploreDrinks } />
@@ -36,12 +33,18 @@ function App() {
       <Route exact path="/profile" component={ Profile } />
       <Route exact path="/done-recipes" component={ DoneRecipes } />
       <Route exact path="/favorite-recipes" component={ Favorites } />
-
       <Route
         exact
         path="/:foodOrDrink/:id"
         render={
           (props) => <DetailedRecipe { ...props } />
+        }
+      />
+      <Route
+        exact
+        path="/:foodOrDrink/:id/in-progress"
+        render={
+          (props) => <InProgress { ...props } />
         }
       />
     </Switch>
