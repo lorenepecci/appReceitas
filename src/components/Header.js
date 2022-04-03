@@ -41,11 +41,10 @@ export default function Header({ title, showSearchIcon, foodOrDrink }) {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  showSearchIcon: PropTypes.bool,
+  showSearchIcon: PropTypes.bool.isRequired,
   foodOrDrink: PropTypes.string,
 };
 
 Header.defaultProps = {
-  showSearchIcon: false,
   foodOrDrink: '',
 };
