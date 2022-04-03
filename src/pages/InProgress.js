@@ -15,8 +15,8 @@ export default function InProgress({ match: { params: { id, foodOrDrink } } }) {
     async function fetchData() {
       const response = await getByType(id, foodOrDrink);
       const results = response.meals ? response.meals : response.drinks;
-      setDataDetailed(results);
-      setGetResult(true);
+      await setDataDetailed(results);
+      await setGetResult(true);
     }
     fetchData();
   }, [foodOrDrink, id, setDataDetailed, setGetResult]);
