@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
-import Favorites from './Favorites';
-import Share from './Share';
+import Favorites from './ButtonFavorites';
+import Share from './ButtonShare';
 
 const copy = require('clipboard-copy');
 
@@ -77,14 +77,15 @@ function ProgressComponent({ foodOrDrink }) {
           onClick={ handleClick }
         >
           <Share
-            data-testid="share-btn"
+            datatestid="share-btn"
             alt="Icone de compartilhamento"
           />
         </button>
         <button type="button" data-testid="favorite-btn">
           <Favorites
-            data-testid="favorite-btn"
+            datatestid="favorite-btn"
             alt="Icone de favoritar"
+            foodOrDrink={ foodOrDrink }
           />
         </button>
       </div>

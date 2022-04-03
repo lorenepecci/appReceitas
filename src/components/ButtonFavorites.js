@@ -24,8 +24,7 @@ export default function Favorites({ datatestid, alt, foodOrDrink }) {
   useEffect(() => {
     setIsCopied(isFavorite);
     const newData = dataDetailed[0];
-    const newType = foodOrDrink.substring(0, foodOrDrink.length - 1);
-    setfavorite(SaveFavorites(newData, newType));
+    setfavorite(SaveFavorites(newData, foodOrDrink));
   }, [dataDetailed, foodOrDrink, isFavorite, setfavorite]);
   return (
     <button
