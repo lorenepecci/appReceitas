@@ -12,7 +12,7 @@ export default function MapCards({ list, foodOrDrink }) {
             name={ item.strMeal || item.strDrink }
             index={ index }
             img={ item.strMealThumb || item.strDrinkThumb }
-            id={ item.idMeal }
+            id={ item.idMeal || item.idDrink }
             foodOrDrink={ foodOrDrink }
           />
         </div>

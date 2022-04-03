@@ -22,12 +22,11 @@ Card.propTypes = {
   name: PropTypes.string,
   img: PropTypes.string,
   index: PropTypes.number.isRequired,
-  id: PropTypes.string,
+  id: PropTypes.string.isRequired,
   foodOrDrink: PropTypes.string.isRequired,
 };
 
 Card.defaultProps = {
   name: '',
   img: '',
-  id: '',
 };
