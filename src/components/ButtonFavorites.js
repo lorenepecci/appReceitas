@@ -7,9 +7,11 @@ import { verifyFavorites } from '../helpers/VerifyLocalStorage';
 import SaveFavorites from '../helpers/SaveFavorites';
 import setLocalStorage from '../helpers/createLocalStorage';
 
-export default function Favorites({ datatestid, alt, foodOrDrink }) {
+export default function Favorites({ datatestid, alt, foodOrDrink, idLocation }) {
   const { dataDetailed, setfavorite, idDetails, favorites } = useContext(Context);
-  const isFavorite = verifyFavorites(idDetails);
+  const id = idLocation || idDetails;
+  console.log(id);
+  const isFavorite = verifyFavorites(id);
   const [isCopied, setIsCopied] = useState(isFavorite);
 
   function handleClick(state) {
@@ -44,4 +46,5 @@ Favorites.propTypes = {
   alt: PropTypes.string.isRequired,
   datatestid: PropTypes.string.isRequired,
   foodOrDrink: PropTypes.string.isRequired,
+  idLocation: PropTypes.string.isRequired,
 };

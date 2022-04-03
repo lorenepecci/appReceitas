@@ -81,6 +81,7 @@ function ProgressComponent({ foodOrDrink }) {
           />
         </button>
         <Favorites
+          idLocation={ newData.idMeal || newData.idDrink }
           datatestid="favorite-btn"
           alt="Icone de favoritar"
           foodOrDrink={ foodOrDrink }
