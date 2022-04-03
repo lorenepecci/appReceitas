@@ -3,30 +3,18 @@ import React from 'react';
 import Card from './Card';
 
 export default function MapCards({ list, foodOrDrink }) {
+  console.log(list);
   return (
-
     <div className="container-items">
       { list.map((item, index) => (
         <div key={ index }>
-          { foodOrDrink === 'food'
-            ? (
-              <Card
-                name={ item.strMeal }
-                index={ index }
-                img={ item.strMealThumb }
-                id={ item.idMeal }
-                foodOrDrink={ foodOrDrink }
-              />)
-
-            : (
-
-              <Card
-                name={ item.strDrink }
-                index={ index }
-                img={ item.strDrinkThumb }
-                id={ item.idDrink }
-                foodOrDrink={ foodOrDrink }
-              />)}
+          <Card
+            name={ item.strMeal || item.strDrink }
+            index={ index }
+            img={ item.strMealThumb || item.strDrinkThumb }
+            id={ item.idMeal }
+            foodOrDrink={ foodOrDrink }
+          />
         </div>
       ))}
     </div>
