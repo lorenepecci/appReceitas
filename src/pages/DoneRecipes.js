@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
+import './DoneRecipes.css';
 
 const copy = require('clipboard-copy');
 
 export default function DoneRecipes() {
   const getRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  const [isLinkCopied, setIsLinkCopied] = useState(false);
   const [list, setList] = useState(getRecipes);
 
   const filterByTypeRecipe = (type) => {
@@ -20,7 +20,7 @@ export default function DoneRecipes() {
 
   const handleClick = ({ target }) => {
     copy(`http://localhost:3000${target.name}`);
-    setIsLinkCopied(true);
+    target.nextSibling.innerHTML = 'Link copied!';
   };
 
   return (
@@ -57,6 +57,7 @@ export default function DoneRecipes() {
                 ? `/foods/${item.id}` : `/drinks/${item.id}` }
             >
               <img
+                className="img-recipe"
                 src={ item.image }
                 data-testid={ `${index}-horizontal-image` }
                 alt="Foto da receita feita"
@@ -101,15 +102,12 @@ export default function DoneRecipes() {
               src={ shareIcon }
               alt="ícone de compartilhamento"
               data-testid={ `${index}-horizontal-share-btn` }
-              // value={ item.id }
               onClick={ handleClick }
             />
-            {isLinkCopied ? <p>Link copied!</p> : null}
+            <p />
           </div>
         ))}
       </div>
     </div>
   );
 }
-
-// Clipboard ref from W3School: https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
