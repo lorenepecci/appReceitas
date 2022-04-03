@@ -23,7 +23,9 @@ export default function Profile() {
 
   return (
     <div>
-      <Header title="Profile" showSearchIcon />
+      <Header title="Profile">
+        <p />
+      </Header>
       <div className="profile-container">
         { user && <p data-testid="profile-email">{verifyEmail()}</p>}
         <Link to="/done-recipes">
