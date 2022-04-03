@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
@@ -98,7 +99,6 @@ export default function HomePage({ foodOrDrink }) {
   };
 
   const onClickButtonCategorie = (category) => {
-    console.log(previousCategorie);
     if (category !== previousCategorie) {
       onChangeCardsForCategory(category);
     } else {

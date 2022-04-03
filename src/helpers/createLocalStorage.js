@@ -30,3 +30,19 @@ const doneRecipes = [
 export function MockStorage() {
   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
 }
+// const inProgressRecipes = {
+//   meals: {
+//     52771: [],
+//     52772: [],
+//   },
+//   cocktails: {
+//     178319: [],
+//     178320: [],
+//   },
+// };
+
+// export function mockStore() {
+//   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+// }
+
+// mockStore();

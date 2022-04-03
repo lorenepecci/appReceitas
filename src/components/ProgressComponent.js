@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
@@ -7,7 +6,7 @@ import Share from './Share';
 
 const copy = require('clipboard-copy');
 
-function DetailedComponent({ foodOrDrink }) {
+function ProgressComponent({ foodOrDrink }) {
   const {
     dataDetailed,
     listOfIngredients,
@@ -39,11 +38,25 @@ function DetailedComponent({ foodOrDrink }) {
       ingredients: filteredIng,
       measure: filteredMeasure,
     });
-  }, [foodOrDrink, newData]);
+  }, [newData, setListOfIngredients]);
 
   const handleClick = () => {
     copy(window.location.href);
     setIsLinkCopied(true);
+  };
+
+  const lengthOfObject = Object.keys(listOfIngredients.ingredients).length;
+
+  const [checkedState, setCheckedState] = useState(
+    new Array(lengthOfObject).fill(false),
+  );
+
+  console.log('ing', lengthOfObject);
+
+  const handleOnChange = (position) => {
+    const updatedCheckedState = checkedState
+      .map((item, index) => (index === position ? !item : item));
+    setCheckedState(updatedCheckedState);
   };
 
   return (
@@ -64,15 +77,16 @@ function DetailedComponent({ foodOrDrink }) {
           onClick={ handleClick }
         >
           <Share
-            datatestid="share-btn"
+            data-testid="share-btn"
             alt="Icone de compartilhamento"
           />
         </button>
-        <Favorites
-          datatestid="favorite-btn"
-          alt="Icone de favoritar"
-          foodOrDrink={ foodOrDrink }
-        />
+        <button type="button" data-testid="favorite-btn">
+          <Favorites
+            data-testid="favorite-btn"
+            alt="Icone de favoritar"
+          />
+        </button>
       </div>
       {isLinkCopied ? <p>Link copied!</p> : null}
       <p data-testid="recipe-category">
@@ -80,16 +94,25 @@ function DetailedComponent({ foodOrDrink }) {
       </p>
       <div>
         <h3>Ingredients</h3>
-        <ul>
-          {Object.values(listOfIngredients.ingredients).map((value, index) => (
-            <li
-              data-testid={ `${index}-ingredient-name-and-measure` }
-              key={ index }
-            >
-              {`${value} - ${Object.values(listOfIngredients.measure)[index]}`}
-            </li>
-          ))}
-        </ul>
+        <div>
+          <ul>
+            {Object.values(listOfIngredients.ingredients).map((value, index) => (
+              <li key={ index } data-testid={ `${index}-ingredient-step` }>
+                <div>
+                  <input
+                    type="checkbox"
+                    id={ index }
+                    checked={ checkedState[index] }
+                    onChange={ () => handleOnChange(index) }
+                  />
+                  <label htmlFor={ value }>
+                    {`${value} - ${Object.values(listOfIngredients.measure)[index]}`}
+                  </label>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <div>
         <h3>Instructions</h3>
@@ -101,8 +124,8 @@ function DetailedComponent({ foodOrDrink }) {
   );
 }
 
-DetailedComponent.propTypes = {
+ProgressComponent.propTypes = {
   foodOrDrink: PropTypes.string.isRequired,
 };
 
-export default DetailedComponent;
+export default ProgressComponent;

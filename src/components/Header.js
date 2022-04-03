@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -42,5 +42,5 @@ export default function Header({ title, showSearchIcon, foodOrDrink }) {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   showSearchIcon: PropTypes.bool.isRequired,
-  foodOrDrink: PropTypes.bool.isRequired,
+  foodOrDrink: PropTypes.string.isRequired,
 };
