@@ -26,7 +26,6 @@ export default function Favorites({ datatestid,
   useEffect(() => {
     setIsCopied(isFavorite);
     const newData = dataDetailed[0] || dataLocation;
-    console.log('Result', SaveFavorites(newData, foodOrDrink));
     setfavorite(SaveFavorites(newData, foodOrDrink));
   }, [dataDetailed, dataLocation, foodOrDrink, isFavorite, setfavorite]);
   return (
@@ -45,7 +44,7 @@ export default function Favorites({ datatestid,
 
 Favorites.propTypes = {
   alt: PropTypes.string.isRequired,
-  dataLocation: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dataLocation: PropTypes.objectOf(PropTypes.string).isRequired,
   datatestid: PropTypes.string.isRequired,
   foodOrDrink: PropTypes.string.isRequired,
   idLocation: PropTypes.string.isRequired,

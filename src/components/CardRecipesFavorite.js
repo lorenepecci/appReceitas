@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import getlocalStorage from '../helpers/getLocalStore';
 import Favorites from './ButtonFavorites';
 import Share from './ButtonShare';
 
+const copy = require('clipboard-copy');
+
 export default function CardRecipesFavorite() {
+  const [isCopied, setCopied] = useState(false);
   const favoritesList = getlocalStorage('favoriteRecipes');
-  console.log(favoritesList);
+  const handleClick = ({ target }) => {
+    console.log(target.name);
+    copy(`http://localhost:3000${target.name}`);
+    setCopied(true);
+  };
   return (
     <div>
       <div>
@@ -63,21 +70,23 @@ export default function CardRecipesFavorite() {
             </p>
           </Link>
           <button
+            name={ `/${item.type}s/${item.id}` }
             type="button"
-            data-testid={ `${index}-horizontal-share-btn` }
-            // onClick={ handleClick }
+            onClick={ handleClick }
           >
             <Share
+              name={ `/${item.type}s/${item.id}` }
               datatestid={ `${index}-horizontal-share-btn` }
               alt="Icone de compartilhamento"
             />
           </button>
+          {isCopied && <span>Link copied!</span>}
           <Favorites
             dataLocation={ favoritesList[index] }
             idLocation={ item.id }
             datatestid={ `${index}-horizontal-favorite-btn` }
             alt="Icone de favoritar"
-            foodOrDrink={ item.type }
+            foodOrDrink={ `${item.type}s` }
           />
         </div>
       ))}

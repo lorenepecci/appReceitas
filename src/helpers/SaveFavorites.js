@@ -2,7 +2,7 @@ export default function SaveFavorites(obj, type) {
   const newType = type.substring(0, type.length - 1);
   const favoriteRecipes = {
     id: obj.idDrink || obj.idMeal || obj.id,
-    type: newType || obj.type,
+    type: newType,
     nationality: obj.strArea ? obj.strArea : '',
     category: obj.strCategory ? obj.strCategory : '' || obj.category,
     alcoholicOrNot: obj.strAlcoholic ? obj.strAlcoholic : '' || obj.alcoholicOrNot,
