@@ -7,10 +7,10 @@ import { verifyFavorites } from '../helpers/VerifyLocalStorage';
 import SaveFavorites from '../helpers/SaveFavorites';
 import setLocalStorage from '../helpers/createLocalStorage';
 
-export default function Favorites({ datatestid, alt, foodOrDrink, idLocation }) {
+export default function Favorites({ datatestid,
+  alt, foodOrDrink, idLocation, dataLocation }) {
   const { dataDetailed, setfavorite, idDetails, favorites } = useContext(Context);
   const id = idLocation || idDetails;
-  console.log(id);
   const isFavorite = verifyFavorites(id);
   const [isCopied, setIsCopied] = useState(isFavorite);
 
@@ -25,9 +25,10 @@ export default function Favorites({ datatestid, alt, foodOrDrink, idLocation }) 
   }
   useEffect(() => {
     setIsCopied(isFavorite);
-    const newData = dataDetailed[0];
+    const newData = dataDetailed[0] || dataLocation;
+    console.log('Result', SaveFavorites(newData, foodOrDrink));
     setfavorite(SaveFavorites(newData, foodOrDrink));
-  }, [dataDetailed, foodOrDrink, isFavorite, setfavorite]);
+  }, [dataDetailed, dataLocation, foodOrDrink, isFavorite, setfavorite]);
   return (
     <button
       type="button"
@@ -44,6 +45,7 @@ export default function Favorites({ datatestid, alt, foodOrDrink, idLocation }) 
 
 Favorites.propTypes = {
   alt: PropTypes.string.isRequired,
+  dataLocation: PropTypes.arrayOf(PropTypes.object).isRequired,
   datatestid: PropTypes.string.isRequired,
   foodOrDrink: PropTypes.string.isRequired,
   idLocation: PropTypes.string.isRequired,
