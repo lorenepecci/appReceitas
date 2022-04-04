@@ -23,10 +23,11 @@ export default function Profile() {
 
   return (
     <div>
-      <Header title="Profile" />
+      <Header title="Profile">
+        <p />
+      </Header>
       <div className="profile-container">
-        { (user) && <p data-testid="profile-email">{verifyEmail}</p>}
-        <p data-testid="profile-email">{verifyEmail()}</p>
+        { user && <p data-testid="profile-email">{verifyEmail()}</p>}
         <Link to="/done-recipes">
           <button data-testid="profile-done-btn" type="button">Done Recipes</button>
         </Link>

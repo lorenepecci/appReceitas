@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
-import Favorites from './Favorites';
-import Share from './Share';
+import Favorites from './ButtonFavorites';
+import Share from './ButtonShare';
 
 const copy = require('clipboard-copy');
 
@@ -40,8 +40,8 @@ function ProgressComponent({ foodOrDrink }) {
     });
   }, [newData, setListOfIngredients]);
 
-  const handleClick = () => {
-    copy(window.location.href);
+  const handleClick = ({ target }) => {
+    copy(`http://localhost:3000/${foodOrDrink}/${target.id}`);
     setIsLinkCopied(true);
   };
 
@@ -50,8 +50,6 @@ function ProgressComponent({ foodOrDrink }) {
   const [checkedState, setCheckedState] = useState(
     new Array(lengthOfObject).fill(false),
   );
-
-  console.log('ing', lengthOfObject);
 
   const handleOnChange = (position) => {
     const updatedCheckedState = checkedState
@@ -77,16 +75,17 @@ function ProgressComponent({ foodOrDrink }) {
           onClick={ handleClick }
         >
           <Share
-            data-testid="share-btn"
+            id={ newData.idMeal || newData.idDrink }
+            datatestid="share-btn"
             alt="Icone de compartilhamento"
           />
         </button>
-        <button type="button" data-testid="favorite-btn">
-          <Favorites
-            data-testid="favorite-btn"
-            alt="Icone de favoritar"
-          />
-        </button>
+        <Favorites
+          idLocation={ newData.idMeal || newData.idDrink }
+          datatestid="favorite-btn"
+          alt="Icone de favoritar"
+          foodOrDrink={ foodOrDrink }
+        />
       </div>
       {isLinkCopied ? <p>Link copied!</p> : null}
       <p data-testid="recipe-category">

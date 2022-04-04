@@ -19,9 +19,14 @@ export default function Card({ index, name, img, id, foodOrDrink }) {
 }
 
 Card.propTypes = {
-  name: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  img: PropTypes.string,
   index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   foodOrDrink: PropTypes.string.isRequired,
+};
+
+Card.defaultProps = {
+  name: '',
+  img: '',
 };

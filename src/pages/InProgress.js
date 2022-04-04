@@ -6,7 +6,6 @@ import { getByType } from '../services/IDApi';
 
 export default function InProgress({ match: { params: { id, foodOrDrink } } }) {
   const {
-    dataDetailed,
     setDataDetailed,
     setGetResult,
     getResult,
@@ -16,13 +15,13 @@ export default function InProgress({ match: { params: { id, foodOrDrink } } }) {
     async function fetchData() {
       const response = await getByType(id, foodOrDrink);
       const results = response.meals ? response.meals : response.drinks;
-      setDataDetailed(results);
-      setGetResult(true);
+      await setDataDetailed(results);
+      await setGetResult(true);
     }
     fetchData();
   }, [foodOrDrink, id, setDataDetailed, setGetResult]);
 
-  console.log('i', id, 'ford', foodOrDrink, 'd', dataDetailed, 'gt', getResult);
+  // console.log('i', id, 'ford', foodOrDrink, 'd', dataDetailed, 'gt', getResult);
 
   return (
     <div>

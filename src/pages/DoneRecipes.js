@@ -50,7 +50,7 @@ export default function DoneRecipes() {
         </button>
       </div>
       <div>
-        { list.map((item, index) => (
+        { list && list.map((item, index) => (
           <div key={ index }>
             <Link
               to={ item.type === 'food'

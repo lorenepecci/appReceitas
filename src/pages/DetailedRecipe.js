@@ -19,11 +19,9 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
     setGetResult,
     setIDDetails,
   } = useContext(Context);
-
   const inProgressRecipes = InProgressRecipesStore(foodOrDrink, id)
     ? 'Continue Recipe' : 'Start Recipe';
 
-  setIDDetails(id);
   useEffect(() => {
     async function fetchData() {
       const response = await getByType(id, foodOrDrink);
@@ -31,18 +29,15 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
       setDataDetailed(results);
       setGetResult(true);
     }
-    fetchData();
-    setIDDetails(id);
-  }, [foodOrDrink, id, setDataDetailed, setGetResult, setIDDetails]);
-
-  useEffect(() => {
     const fetchRecommendations = async () => {
       const response = await getRecommendations(foodOrDrink);
       const results = response.meals ? response.meals : response.drinks;
       setRecommendations(results.filter((_item, index) => index <= LIMITED_OPTIONS));
     };
+    fetchData();
+    setIDDetails(id);
     fetchRecommendations();
-  }, [foodOrDrink, id]);
+  }, [foodOrDrink, id, setDataDetailed, setGetResult, setIDDetails]);
   return (
     <div>
       <span className="title-DetailedRecipe">

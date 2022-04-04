@@ -2,8 +2,8 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
-import Favorites from './Favorites';
-import Share from './Share';
+import Favorites from './ButtonFavorites';
+import Share from './ButtonShare';
 
 const copy = require('clipboard-copy');
 
