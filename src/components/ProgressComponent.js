@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
 import Favorites from './ButtonFavorites';
 import Share from './ButtonShare';
@@ -13,7 +14,10 @@ function ProgressComponent({ foodOrDrink }) {
     setListOfIngredients,
   } = useContext(Context);
 
+  const history = useHistory();
   const [isLinkCopied, setIsLinkCopied] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [checkedState, setCheckedState] = useState([]);
 
   const newData = dataDetailed[0];
 
@@ -38,24 +42,34 @@ function ProgressComponent({ foodOrDrink }) {
       ingredients: filteredIng,
       measure: filteredMeasure,
     });
-  }, [newData, setListOfIngredients]);
+    const lengthOfObject = Object.keys(filteredIng).length;
+    setCheckedState(new Array(lengthOfObject).fill(false));
+  }, [newData, setListOfIngredients, setCheckedState]);
 
   const handleClick = ({ target }) => {
     copy(`http://localhost:3000/${foodOrDrink}/${target.id}`);
     setIsLinkCopied(true);
   };
 
-  const lengthOfObject = Object.keys(listOfIngredients.ingredients).length;
+  /*   const lengthOfObject = Object.keys(listOfIngredients.ingredients).length;
 
   const [checkedState, setCheckedState] = useState(
     new Array(lengthOfObject).fill(false),
   );
+ */
+  const checkButton = (updatedCheckedState) => {
+    const check = updatedCheckedState.every((value) => (value === true));
+    setIsDisabled(!check);
+  };
 
   const handleOnChange = (position) => {
     const updatedCheckedState = checkedState
       .map((item, index) => (index === position ? !item : item));
     setCheckedState(updatedCheckedState);
+    checkButton(updatedCheckedState);
   };
+
+  console.log(checkedState, isDisabled);
 
   return (
     <div>
@@ -118,6 +132,16 @@ function ProgressComponent({ foodOrDrink }) {
         <p data-testid="instructions">
           { newData.strInstructions }
         </p>
+      </div>
+      <div>
+        <button
+          data-testid="finish-recipe-btn"
+          type="button"
+          onClick={ () => history.push('/done-recipes') }
+          disabled={ isDisabled }
+        >
+          Finish Recipe
+        </button>
       </div>
     </div>
   );
