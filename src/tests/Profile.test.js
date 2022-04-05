@@ -14,9 +14,6 @@ describe('page Profile', () => {
 
   test('button Favorite Recipes ', async () => {
     const { history } = renderWithRouter(<Profile />);
-    /* global.fetch = jest.fn().mockResolvedValue({
-      json: () => Promise.resolve(oneMeal.meals),
-    }); */
     const text2 = await screen.findByText('Favorite Recipes');
     expect(text2).toBeInTheDocument();
     text2.click();

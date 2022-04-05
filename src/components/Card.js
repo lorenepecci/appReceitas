@@ -10,7 +10,7 @@ export default function Card({ index, name, img, id, foodOrDrink }) {
         <img
           data-testid={ `${index}-card-img` }
           src={ img }
-          alt="drink"
+          alt="cardImage"
         />
       </Link>
     </div>
