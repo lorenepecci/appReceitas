@@ -6,36 +6,50 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { verifyFavorites } from '../helpers/VerifyLocalStorage';
 import SaveFavorites from '../helpers/SaveFavorites';
 import setLocalStorage from '../helpers/createLocalStorage';
+import getlocalStorage from '../helpers/getLocalStore';
 
-export default function Favorites({ datatestid,
-  alt, foodOrDrink, idLocation, dataLocation }) {
-  const { dataDetailed, setfavorite, idDetails, favorites } = useContext(Context);
-  const id = idLocation || idDetails;
-  const isFavorite = verifyFavorites(id);
-  const [isCopied, setIsCopied] = useState(isFavorite);
+export default function Favorites({ alt, foodOrDrink }) {
+  const { dataDetailed,
+    setfavorite,
+    idDetails,
+    favorites,
+    setList,
+    FavoriteList,
+  } = useContext(Context);
+  const [isFavorite, setFavorite] = useState(verifyFavorites(idDetails));
 
-  function handleClick(state) {
-    const result = setIsCopied(state);
-    if (!isCopied) {
+  const handleClick = () => {
+    const currentFavorites = getlocalStorage('favoriteRecipes');
+    if (verifyFavorites(idDetails)) {
+      console.log('True');
+      const removeFavorite = currentFavorites.filter((item) => item.id !== idDetails);
+      setLocalStorage('favoriteRecipes', removeFavorite);
+      setList(removeFavorite);
+      setFavorite(verifyFavorites(idDetails));
+    } else if (!currentFavorites) {
       setLocalStorage('favoriteRecipes', [favorites]);
+      setList([favorites]);
+      setFavorite(verifyFavorites(idDetails));
     } else {
-      localStorage.removeItem('favoriteRecipes');
+      setList((prevState) => [...prevState, favorites]);
+      setFavorite(verifyFavorites(idDetails));
     }
-    return result;
-  }
+  };
+  setLocalStorage('favoriteRecipes', FavoriteList);
+
   useEffect(() => {
-    setIsCopied(isFavorite);
-    const newData = dataDetailed[0] || dataLocation;
+    const newData = dataDetailed[0];
+    setFavorite(verifyFavorites(idDetails));
     setfavorite(SaveFavorites(newData, foodOrDrink));
-  }, [dataDetailed, dataLocation, foodOrDrink, isFavorite, setfavorite]);
+  }, [FavoriteList, dataDetailed, foodOrDrink, idDetails, setfavorite]);
   return (
     <button
       type="button"
-      onClick={ () => { handleClick(!isCopied); } }
+      onClick={ handleClick }
     >
       <img
-        data-testid={ datatestid }
-        src={ isCopied ? blackHeartIcon : WhiteHeartIcon }
+        data-testid="favorite-btn"
+        src={ isFavorite ? blackHeartIcon : WhiteHeartIcon }
         alt={ alt }
       />
     </button>
@@ -44,8 +58,5 @@ export default function Favorites({ datatestid,
 
 Favorites.propTypes = {
   alt: PropTypes.string.isRequired,
-  dataLocation: PropTypes.objectOf(PropTypes.string).isRequired,
-  datatestid: PropTypes.string.isRequired,
   foodOrDrink: PropTypes.string.isRequired,
-  idLocation: PropTypes.string.isRequired,
 };

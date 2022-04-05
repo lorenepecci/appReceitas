@@ -69,7 +69,6 @@ function DetailedComponent({ foodOrDrink }) {
           />
         </button>
         <Favorites
-          datatestid="favorite-btn"
           alt="Icone de favoritar"
           foodOrDrink={ foodOrDrink }
         />
