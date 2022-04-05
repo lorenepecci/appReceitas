@@ -21,7 +21,6 @@ export default function Favorites({ alt, foodOrDrink }) {
   const handleClick = () => {
     const currentFavorites = getlocalStorage('favoriteRecipes');
     if (verifyFavorites(idDetails)) {
-      console.log('True');
       const removeFavorite = currentFavorites.filter((item) => item.id !== idDetails);
       setLocalStorage('favoriteRecipes', removeFavorite);
       setList(removeFavorite);
@@ -40,6 +39,7 @@ export default function Favorites({ alt, foodOrDrink }) {
   useEffect(() => {
     const newData = dataDetailed[0];
     setFavorite(verifyFavorites(idDetails));
+    console.log(SaveFavorites(newData, foodOrDrink));
     setfavorite(SaveFavorites(newData, foodOrDrink));
   }, [FavoriteList, dataDetailed, foodOrDrink, idDetails, setfavorite]);
   return (
