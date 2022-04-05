@@ -1,22 +1,34 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
-// import getlocalStorage from '../helpers/getLocalStore';
+import getlocalStorage from '../helpers/getLocalStore';
 import ShareIcon from '../images/shareIcon.svg';
 import FavoriteRecipesButton from './FavoriteRecipesButton';
 import Context from '../context/Context';
 import SaveFavorites from '../helpers/SaveFavorites';
 
 export default function CardRecipesFavorite() {
-  const { FavoriteList } = useContext(Context);
+  const inicialState = getlocalStorage('favoriteRecipes');
+  const { FavoriteList, setList } = useContext(Context);
   const [isCopied, setCopied] = useState(false);
-  const favoritesList = FavoriteList;
   const TREE_SECONDS = 3000;
   const handleClick = ({ target }) => {
     copy(`http://localhost:3000${target.name}`);
     setCopied(true);
     setInterval(() => setCopied(false), TREE_SECONDS);
   };
+  const filterByTypeRecipe = (type) => {
+    if (type) {
+      const results = inicialState.filter((item) => item.type === type);
+      setList(results);
+    } else {
+      console.log(inicialState);
+      setList(inicialState);
+    }
+  };
+  useEffect(() => {
+    filterByTypeRecipe();
+  }, []);
   return (
     <div>
       <div>
@@ -42,7 +54,7 @@ export default function CardRecipesFavorite() {
           Drinks
         </button>
       </div>
-      {favoritesList.map((item, index) => (
+      {FavoriteList.map((item, index) => (
         <div key={ index }>
           <Link
             to={ item.type === 'food'
