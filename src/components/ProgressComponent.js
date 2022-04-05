@@ -2,12 +2,13 @@ import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
+import SetProgressInLStorage from '../helpers/setProgressInLStorage';
 import Favorites from './ButtonFavorites';
 import Share from './ButtonShare';
 
 const copy = require('clipboard-copy');
 
-function ProgressComponent({ foodOrDrink }) {
+function ProgressComponent({ foodOrDrink, id }) {
   const {
     dataDetailed,
     listOfIngredients,
@@ -51,25 +52,22 @@ function ProgressComponent({ foodOrDrink }) {
     setIsLinkCopied(true);
   };
 
-  /*   const lengthOfObject = Object.keys(listOfIngredients.ingredients).length;
-
-  const [checkedState, setCheckedState] = useState(
-    new Array(lengthOfObject).fill(false),
-  );
- */
   const checkButton = (updatedCheckedState) => {
     const check = updatedCheckedState.every((value) => (value === true));
     setIsDisabled(!check);
   };
 
   const handleOnChange = (position) => {
+    const ingr = Object.values(listOfIngredients.ingredients)[position];
+    // const ingrId = { newData.idMeal || newData.idDrink }
     const updatedCheckedState = checkedState
       .map((item, index) => (index === position ? !item : item));
     setCheckedState(updatedCheckedState);
     checkButton(updatedCheckedState);
+    SetProgressInLStorage(foodOrDrink, id, ingr);
   };
 
-  console.log(checkedState, isDisabled);
+  // console.log(newData);
 
   return (
     <div>
@@ -149,6 +147,7 @@ function ProgressComponent({ foodOrDrink }) {
 
 ProgressComponent.propTypes = {
   foodOrDrink: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default ProgressComponent;

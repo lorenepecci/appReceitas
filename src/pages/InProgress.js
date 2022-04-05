@@ -26,7 +26,8 @@ export default function InProgress({ match: { params: { id, foodOrDrink } } }) {
   return (
     <div>
       {getResult
-        ? <ProgressComponent foodOrDrink={ foodOrDrink } /> : <p>Carregando...</p>}
+        ? <ProgressComponent foodOrDrink={ foodOrDrink } id={ id } />
+        : <p>Carregando...</p>}
     </div>
   );
 }
