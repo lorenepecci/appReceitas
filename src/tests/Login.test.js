@@ -8,7 +8,9 @@ describe('page Login', () => {
   beforeEach(() => {
     renderWithRouter(<App />);
   });
-  test('text Login ', () => {
+
+  test('testa se existe o input email', () => {
+    const idEmail = 'email-input';
     const text2 = screen.getByTestId(idEmail);
     expect(text2).toBeInTheDocument();
   });
@@ -18,7 +20,7 @@ describe('page Login', () => {
     expect(button).toBeInTheDocument();
   });
 
-  test('input email', () => {
+  test('testa se após digitar no campo email ele recebe ', () => {
     const idEmail = 'email-input';
     const emailSimulation = 'lorenepecci@gmail.com';
     const inputEmail = screen.getByTestId(idEmail);
@@ -29,7 +31,7 @@ describe('page Login', () => {
     expect(inputEmail).toHaveValue(emailSimulation);
   });
 
-  test('input password', () => {
+  test('testa se após digitar no campo password ele recebe', () => {
     const idPassword = 'password-input';
     const passwordSimulation = '99999999999999999999';
     const inputPassword = screen.getByTestId(idPassword);
@@ -40,13 +42,19 @@ describe('page Login', () => {
     expect(inputPassword).toHaveValue('99999999999999999999');
   });
 
-  test('disable button ', () => {
+  test('testar o click do botao ', () => {
+    /*  const { history } = renderWithRouter(<App />); */
     const idPassword = 'password-input';
-    const button = screen.getByRole('button', { hidden: true });
+    const button = screen.getByRole('button');
+    console.log(button);
+    expect(button).toBeDisabled();
     const inputEmail = screen.getByTestId(idPassword);
     userEvent.type(inputEmail, 'lorenepecci@gmail.com');
     const inputPassword = screen.getByTestId(idPassword);
     userEvent.type(inputPassword, '99999999999999999999');
-    expect(button.hidden).toBe(false);
+    userEvent.click(button);
+    /* history.push('/foods'); */
+    /*  const text2 = screen.getByText('Foods');
+    expect(text2).toBeInTheDocument(); */
   });
 });
