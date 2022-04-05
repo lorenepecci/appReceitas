@@ -12,6 +12,7 @@ function ProgressComponent({ foodOrDrink }) {
     dataDetailed,
     listOfIngredients,
     setListOfIngredients,
+    setIDDetails,
   } = useContext(Context);
 
   const history = useHistory();
@@ -71,6 +72,10 @@ function ProgressComponent({ foodOrDrink }) {
 
   console.log(checkedState, isDisabled);
 
+  const id = newData.idMeal || newData.idDrink;
+
+  setIDDetails(id);
+
   return (
     <div>
       <img
@@ -90,13 +95,10 @@ function ProgressComponent({ foodOrDrink }) {
         >
           <Share
             id={ newData.idMeal || newData.idDrink }
-            datatestid="share-btn"
             alt="Icone de compartilhamento"
           />
         </button>
         <Favorites
-          idLocation={ newData.idMeal || newData.idDrink }
-          datatestid="favorite-btn"
           alt="Icone de favoritar"
           foodOrDrink={ foodOrDrink }
         />
