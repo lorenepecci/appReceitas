@@ -27,12 +27,6 @@ export default function InProgress({ match: { params: { id, foodOrDrink } } }) {
     <div>
       {getResult
         ? <ProgressComponent foodOrDrink={ foodOrDrink } /> : <p>Carregando...</p>}
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
-      >
-        Finalizar receita
-      </button>
     </div>
   );
 }
