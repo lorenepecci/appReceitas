@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import getlocalStorage from '../helpers/getLocalStore';
 import ShareIcon from '../images/shareIcon.svg';
 import FavoriteRecipesButton from './FavoriteRecipesButton';
 
-const copy = require('clipboard-copy');
-
 export default function CardRecipesFavorite() {
   const [isCopied, setCopied] = useState(false);
   const favoritesList = getlocalStorage('favoriteRecipes');
+  const TREE_SECONDS = 3000;
   const handleClick = ({ target }) => {
-    console.log(target.name);
     copy(`http://localhost:3000${target.name}`);
     setCopied(true);
+    setInterval(() => setCopied(false), TREE_SECONDS);
   };
   return (
     <div>
@@ -70,11 +70,11 @@ export default function CardRecipesFavorite() {
             </p>
           </Link>
           <button
-            name={ `/${item.type}s/${item.id}` }
             type="button"
             onClick={ handleClick }
           >
             <img
+              name={ `/${item.type}s/${item.id}` }
               src={ ShareIcon }
               alt="Icone de compartilhar"
               data-testid={ `${index}-horizontal-share-btn` }
