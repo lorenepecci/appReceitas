@@ -25,7 +25,7 @@ export default function DoneRecipes() {
 
   return (
     <div>
-      <Header title="Done Recipes" />
+      <Header title="Done Recipes" showSearchIcon={ false } />
       <div>
         <button
           type="button"
