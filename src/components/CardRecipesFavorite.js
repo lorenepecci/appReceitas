@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import getlocalStorage from '../helpers/getLocalStore';
+// import getlocalStorage from '../helpers/getLocalStore';
 import ShareIcon from '../images/shareIcon.svg';
 import FavoriteRecipesButton from './FavoriteRecipesButton';
+import Context from '../context/Context';
+import SaveFavorites from '../helpers/SaveFavorites';
 
 export default function CardRecipesFavorite() {
+  const { FavoriteList } = useContext(Context);
   const [isCopied, setCopied] = useState(false);
-  const favoritesList = getlocalStorage('favoriteRecipes');
+  const favoritesList = FavoriteList;
   const TREE_SECONDS = 3000;
   const handleClick = ({ target }) => {
     copy(`http://localhost:3000${target.name}`);
@@ -82,8 +85,10 @@ export default function CardRecipesFavorite() {
           </button>
           {isCopied && <span>Link copied!</span>}
           <FavoriteRecipesButton
+            id={ item.id }
             datatestid={ `${index}-horizontal-favorite-btn` }
             alt="Icone de favoritar"
+            obj={ SaveFavorites(item, `${item.type}s`) }
           />
         </div>
       ))}
