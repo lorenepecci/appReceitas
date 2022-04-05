@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Context from './Context';
+import getlocalStorage from '../helpers/getLocalStore';
 
 const Provider = ({ children }) => {
   const [favorites, setfavorite] = useState({});
   const [idDetails, setIDDetails] = useState('');
+  const [FavoriteList, setList] = useState(getlocalStorage('favoriteRecipes'));
 
   const [userInfos, setUserInfos] = useState({
     email: '',
@@ -49,6 +51,8 @@ const Provider = ({ children }) => {
     setfavorite,
     idDetails,
     setIDDetails,
+    FavoriteList,
+    setList,
   };
 
   return (

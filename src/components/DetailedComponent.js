@@ -64,12 +64,11 @@ function DetailedComponent({ foodOrDrink }) {
           onClick={ handleClick }
         >
           <Share
-            datatestid="share-btn"
+            datatestid="img-share-btn"
             alt="Icone de compartilhamento"
           />
         </button>
         <Favorites
-          datatestid="favorite-btn"
           alt="Icone de favoritar"
           foodOrDrink={ foodOrDrink }
         />
