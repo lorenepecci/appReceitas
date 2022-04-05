@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import getlocalStorage from '../helpers/getLocalStore';
+import ShareIcon from '../images/shareIcon.svg';
+import FavoriteRecipesButton from './FavoriteRecipesButton';
 
 const copy = require('clipboard-copy');
 
@@ -72,9 +74,17 @@ export default function CardRecipesFavorite() {
             type="button"
             onClick={ handleClick }
           >
-            aaaaa
+            <img
+              src={ ShareIcon }
+              alt="Icone de compartilhar"
+              data-testid={ `${index}-horizontal-share-btn` }
+            />
           </button>
           {isCopied && <span>Link copied!</span>}
+          <FavoriteRecipesButton
+            datatestid={ `${index}-horizontal-favorite-btn` }
+            alt="Icone de favoritar"
+          />
         </div>
       ))}
     </div>
