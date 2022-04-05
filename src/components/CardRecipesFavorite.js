@@ -31,30 +31,28 @@ export default function CardRecipesFavorite() {
   }, []);
   return (
     <div>
-      <div>
-        <button
-          type="button"
-          data-testid="filter-by-all-btn"
-          onClick={ () => { filterByTypeRecipe(''); } }
-        >
-          All
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-food-btn"
-          onClick={ () => { filterByTypeRecipe('food'); } }
-        >
-          Food
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-          onClick={ () => { filterByTypeRecipe('drink'); } }
-        >
-          Drinks
-        </button>
-      </div>
-      {FavoriteList.map((item, index) => (
+      <button
+        type="button"
+        data-testid="filter-by-all-btn"
+        onClick={ () => { filterByTypeRecipe(''); } }
+      >
+        All
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-food-btn"
+        onClick={ () => { filterByTypeRecipe('food'); } }
+      >
+        Food
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-drink-btn"
+        onClick={ () => { filterByTypeRecipe('drink'); } }
+      >
+        Drinks
+      </button>
+      {FavoriteList && FavoriteList.map((item, index) => (
         <div key={ index }>
           <Link
             to={ item.type === 'food'
