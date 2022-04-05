@@ -64,7 +64,7 @@ function DetailedComponent({ foodOrDrink }) {
           onClick={ handleClick }
         >
           <Share
-            datatestid="share-btn"
+            datatestid="img-share-btn"
             alt="Icone de compartilhamento"
           />
         </button>

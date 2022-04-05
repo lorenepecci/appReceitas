@@ -16,9 +16,7 @@ export default function FavoriteRecipesButton({ datatestid, alt, id, obj }) {
       const removeFavorite = currentFavorites.filter((item) => item.id !== id);
       setLocalStorage('favoriteRecipes', removeFavorite);
       setList(removeFavorite);
-      console.log('true');
     } else {
-      console.log('false');
       setList((prevState) => [...prevState, obj]);
     }
   };
