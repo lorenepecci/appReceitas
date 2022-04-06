@@ -34,10 +34,12 @@ export default function HomePage({ foodOrDrink }) {
     if (foodOrDrink === 'drink') {
       setDrinkCards(data.drinks
         .filter((_i, index) => index < magicTwelve));
+      setFoodCards([]);
     }
     if (foodOrDrink === 'food') {
       setFoodCards(data.meals
         .filter((_i, index) => index < magicTwelve));
+      setDrinkCards([]);
     }
   };
 
