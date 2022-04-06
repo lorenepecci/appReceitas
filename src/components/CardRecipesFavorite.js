@@ -1,11 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Context from '../context/Context';
 import getlocalStorage from '../helpers/getLocalStore';
+import SaveFavorites from '../helpers/SaveFavorites';
 import ShareIcon from '../images/shareIcon.svg';
 import FavoriteRecipesButton from './FavoriteRecipesButton';
-import Context from '../context/Context';
-import SaveFavorites from '../helpers/SaveFavorites';
 
 export default function CardRecipesFavorite() {
   const inicialState = getlocalStorage('favoriteRecipes');
@@ -22,7 +22,6 @@ export default function CardRecipesFavorite() {
       const results = inicialState.filter((item) => item.type === type);
       setList(results);
     } else {
-      console.log(inicialState);
       setList(inicialState);
     }
   };
