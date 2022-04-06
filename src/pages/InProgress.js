@@ -21,8 +21,6 @@ export default function InProgress({ match: { params: { id, foodOrDrink } } }) {
     fetchData();
   }, [foodOrDrink, id, setDataDetailed, setGetResult]);
 
-  // console.log('i', id, 'ford', foodOrDrink, 'd', dataDetailed, 'gt', getResult);
-
   return (
     <div>
       {getResult

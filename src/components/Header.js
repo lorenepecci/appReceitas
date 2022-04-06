@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -14,6 +14,7 @@ export default function Header({ title, showSearchIcon, foodOrDrink }) {
       <button
         type="button"
         onClick={ () => history.push('/profile') }
+        data-testid="profile-top-btn-btn"
       >
         <img
           data-testid="profile-top-btn"
