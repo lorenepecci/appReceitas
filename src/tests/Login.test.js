@@ -5,12 +5,15 @@ import App from '../App';
 import renderWithRouter from './renderWithRouter';
 
 describe('page Login', () => {
+  const idEmail = 'email-input';
+  const idPassword = 'password-input';
+  let globalHistory;
   beforeEach(() => {
-    renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />);
+    globalHistory = history;
   });
 
   test('testa se existe o input email', () => {
-    const idEmail = 'email-input';
     const text2 = screen.getByTestId(idEmail);
     expect(text2).toBeInTheDocument();
   });
@@ -21,7 +24,6 @@ describe('page Login', () => {
   });
 
   test('testa se após digitar no campo email ele recebe ', () => {
-    const idEmail = 'email-input';
     const emailSimulation = 'lorenepecci@gmail.com';
     const inputEmail = screen.getByTestId(idEmail);
     console.log(inputEmail);
@@ -32,7 +34,6 @@ describe('page Login', () => {
   });
 
   test('testa se após digitar no campo password ele recebe', () => {
-    const idPassword = 'password-input';
     const passwordSimulation = '99999999999999999999';
     const inputPassword = screen.getByTestId(idPassword);
     console.log(inputPassword);
@@ -43,18 +44,14 @@ describe('page Login', () => {
   });
 
   test('testar o click do botao ', () => {
-    /*  const { history } = renderWithRouter(<App />); */
-    const idPassword = 'password-input';
-    const button = screen.getByRole('button');
-    console.log(button);
+    const button = screen.getByTestId('login-submit-btn');
     expect(button).toBeDisabled();
-    const inputEmail = screen.getByTestId(idPassword);
+    const inputEmail = screen.getByTestId(idEmail);
     userEvent.type(inputEmail, 'lorenepecci@gmail.com');
     const inputPassword = screen.getByTestId(idPassword);
     userEvent.type(inputPassword, '99999999999999999999');
+    expect(button).not.toBeDisabled();
     userEvent.click(button);
-    /* history.push('/foods'); */
-    /*  const text2 = screen.getByText('Foods');
-    expect(text2).toBeInTheDocument(); */
+    globalHistory.push('/foods');
   });
 });

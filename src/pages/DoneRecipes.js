@@ -86,7 +86,7 @@ export default function DoneRecipes() {
               {' '}
               { item.doneDate }
             </p>
-            { item.type === 'food'
+            { (item.type === 'food' && item.tags)
               ? (item.tags.map((tag, i) => (
                 <p
                   data-testid={ `${index}-${item.tags[i]}-horizontal-tag` }

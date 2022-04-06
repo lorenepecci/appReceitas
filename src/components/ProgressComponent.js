@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
-// import SetProgressInLStorage from '../helpers/setProgressInLStorage';
+import setLocalStorage from '../helpers/createLocalStorage';
 import Favorites from './ButtonFavorites';
 import Share from './ButtonShare';
 
@@ -37,7 +37,6 @@ function ProgressComponent({ foodOrDrink }) {
     const filteredIng = Object.keys(newData).filter((key) => key.match(strIngredient))
       .reduce((obj, key) => {
         obj[key] = newData[key];
-        // return obj;
         return removeEmptyFilter(obj);
       }, {});
     const strMeasure = 'strMeasure';
@@ -106,6 +105,47 @@ function ProgressComponent({ foodOrDrink }) {
 
   // console.log(mealsListx);
 
+  useEffect(() => {
+    let getRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!getRecipes) {
+      setLocalStorage('doneRecipes', []);
+      getRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    }
+  }, []);
+
+  const pushDoneRecipes = () => {
+    let newObjDone = {};
+    console.log(foodOrDrink);
+    if (foodOrDrink === 'drinks') {
+      newObjDone = ({
+        id: dataDetailed[0].idDrink,
+        type: 'drink',
+        category: dataDetailed[0].strCategory,
+        alcoholicOrNot: dataDetailed[0].strAlcoholic,
+        name: dataDetailed[0].strDrink,
+        image: dataDetailed[0].strDrinkThumb,
+        doneDate: '23/06/2020',
+        tags: null,
+      });
+    } else {
+      newObjDone = ({
+        id: dataDetailed[0].idMeal,
+        type: 'food',
+        nationality: dataDetailed[0].strArea,
+        category: dataDetailed[0].strCategory,
+        alcoholicOrNot: '',
+        name: dataDetailed[0].strMeal,
+        image: dataDetailed[0].strMealThumb,
+        doneDate: '23/06/2020',
+        tags: null,
+      });
+    }
+    const getRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const newList = [...getRecipes, newObjDone];
+    setLocalStorage('doneRecipes', newList);
+    history.push('/done-recipes');
+  };
+
   return (
     <div>
       <img
@@ -169,7 +209,7 @@ function ProgressComponent({ foodOrDrink }) {
         <button
           data-testid="finish-recipe-btn"
           type="button"
-          onClick={ () => history.push('/done-recipes') }
+          onClick={ pushDoneRecipes }
           disabled={ isDisabled }
         >
           Finish Recipe
