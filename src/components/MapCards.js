@@ -3,7 +3,6 @@ import React from 'react';
 import Card from './Card';
 
 export default function MapCards({ list, foodOrDrink }) {
-  console.log(list);
   return (
     <div className="container-items">
       { list.map((item, index) => (

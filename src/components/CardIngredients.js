@@ -9,7 +9,6 @@ export default function CardIngredients({ index, name, isFood }) {
   const imgDrink = `https://www.thecocktaildb.com/images/ingredients/${name}-Small.png`;
   const urlRecipes = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${name}`;
   const urlRecipesDrinks = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${name}`;
-  console.log(name);
 
   const { setUrlForFetch } = useContext(Context);
   const { setIsFromIngredientsExplore } = useContext(Context);
@@ -42,7 +41,7 @@ export default function CardIngredients({ index, name, isFood }) {
         <img
           data-testid={ `${index}-card-img` }
           src={ img() }
-          alt="drink"
+          alt="cardIngredient"
           width="50px"
         />
       </button>
