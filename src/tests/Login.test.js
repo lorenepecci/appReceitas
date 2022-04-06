@@ -42,18 +42,20 @@ describe('page Login', () => {
     expect(inputPassword).toHaveValue('99999999999999999999');
   });
 
-  test('testar o click do botao ', () => {
-    /*  const { history } = renderWithRouter(<App />); */
+  test.only('testar o click do botao ', () => {
+    const { history } = renderWithRouter(<App />);
+    const idEmail = 'email-input';
     const idPassword = 'password-input';
-    const button = screen.getByRole('button');
+    const button = screen.getByTestId('login-submit-btn');
     console.log(button);
     expect(button).toBeDisabled();
-    const inputEmail = screen.getByTestId(idPassword);
+    const inputEmail = screen.getByTestId(idEmail);
     userEvent.type(inputEmail, 'lorenepecci@gmail.com');
     const inputPassword = screen.getByTestId(idPassword);
     userEvent.type(inputPassword, '99999999999999999999');
+    expect(button).not.toBeDisabled();
     userEvent.click(button);
-    /* history.push('/foods'); */
+    history.push('/foods');
     /*  const text2 = screen.getByText('Foods');
     expect(text2).toBeInTheDocument(); */
   });
