@@ -70,9 +70,18 @@ function ProgressComponent({ foodOrDrink }) {
 
   setIDDetails(id);
 
+  useEffect(() => {
+    let getRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!getRecipes) {
+      setLocalStorage('doneRecipes', []);
+      getRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    }
+  }, []);
+
   const pushDoneRecipes = () => {
     let newObjDone = {};
-    if (foodOrDrink === 'drink') {
+    console.log(foodOrDrink);
+    if (foodOrDrink === 'drinks') {
       newObjDone = ({
         id: dataDetailed[0].idDrink,
         type: 'drink',
@@ -81,19 +90,19 @@ function ProgressComponent({ foodOrDrink }) {
         name: dataDetailed[0].strDrink,
         image: dataDetailed[0].strDrinkThumb,
         doneDate: '23/06/2020',
-        tags: dataDetailed[0].strTags,
+        tags: null,
       });
     } else {
       newObjDone = ({
         id: dataDetailed[0].idMeal,
-        type: 'Food',
+        type: 'food',
         nationality: dataDetailed[0].strArea,
         category: dataDetailed[0].strCategory,
         alcoholicOrNot: '',
         name: dataDetailed[0].strMeal,
         image: dataDetailed[0].strMealThumb,
         doneDate: '23/06/2020',
-        tags: dataDetailed[0].strTags,
+        tags: null,
       });
     }
     const getRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
