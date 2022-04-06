@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect } from 'react';
-import Context from '../context/Context';
 import ProgressComponent from '../components/ProgressComponent';
+import Context from '../context/Context';
 import { getByType } from '../services/IDApi';
 
 export default function InProgress({ match: { params: { id, foodOrDrink } } }) {
@@ -24,7 +24,12 @@ export default function InProgress({ match: { params: { id, foodOrDrink } } }) {
   return (
     <div>
       {getResult
-        ? <ProgressComponent foodOrDrink={ foodOrDrink } /> : <p>Carregando...</p>}
+        ? (
+          <ProgressComponent
+            foodOrDrink={ foodOrDrink }
+            idProduct={ id }
+          />
+        ) : <p>Carregando...</p> }
     </div>
   );
 }
