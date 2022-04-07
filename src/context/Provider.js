@@ -28,6 +28,9 @@ const Provider = ({ children }) => {
     measure: {},
   });
 
+  const [mealsList, setMealsList] = useState([]);
+  const [cocktailsList, setCocktailsList] = useState([]);
+
   const contextData = {
     isFromIngredientsExplore,
     setIsFromIngredientsExplore,
@@ -51,6 +54,10 @@ const Provider = ({ children }) => {
     setfavorite,
     idDetails,
     setIDDetails,
+    mealsList,
+    setMealsList,
+    cocktailsList,
+    setCocktailsList,
     FavoriteList,
     setList,
   };
