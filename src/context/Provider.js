@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import Context from './Context';
 import getlocalStorage from '../helpers/getLocalStore';
+import Context from './Context';
 
 const Provider = ({ children }) => {
   const [favorites, setfavorite] = useState({});
@@ -28,7 +28,6 @@ const Provider = ({ children }) => {
     measure: {},
   });
 
-  const [mealsList, setMealsList] = useState([]);
   const [cocktailsList, setCocktailsList] = useState([]);
 
   const contextData = {
@@ -54,8 +53,6 @@ const Provider = ({ children }) => {
     setfavorite,
     idDetails,
     setIDDetails,
-    mealsList,
-    setMealsList,
     cocktailsList,
     setCocktailsList,
     FavoriteList,

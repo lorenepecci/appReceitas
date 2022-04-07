@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
-import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { verifyFavorites } from '../helpers/VerifyLocalStorage';
-import SaveFavorites from '../helpers/SaveFavorites';
 import setLocalStorage from '../helpers/createLocalStorage';
 import getlocalStorage from '../helpers/getLocalStore';
+import SaveFavorites from '../helpers/SaveFavorites';
+import { verifyFavorites } from '../helpers/VerifyLocalStorage';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 export default function Favorites({ alt, foodOrDrink }) {
   const { dataDetailed,
@@ -39,7 +39,6 @@ export default function Favorites({ alt, foodOrDrink }) {
   useEffect(() => {
     const newData = dataDetailed[0];
     setFavorite(verifyFavorites(idDetails));
-    console.log(SaveFavorites(newData, foodOrDrink));
     setfavorite(SaveFavorites(newData, foodOrDrink));
   }, [FavoriteList, dataDetailed, foodOrDrink, idDetails, setfavorite]);
   return (
