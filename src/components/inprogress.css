@@ -1,0 +1,7 @@
+.pintar:checked {
+  text-decoration: line-through;
+}
+
+.riscar input:checked ~ .tagp {
+  text-decoration: line-through;
+}

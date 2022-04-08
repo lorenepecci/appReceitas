@@ -8,14 +8,14 @@ import { verifyFavorites } from '../helpers/VerifyLocalStorage';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 
-export default function Favorites({ alt, foodOrDrink }) {
+export default function Favorites({ alt, foodOrDrink, id }) {
   const { dataDetailed,
     setfavorite,
-    idDetails,
     favorites,
     setList,
     FavoriteList,
   } = useContext(Context);
+  const idDetails = id;
   const [isFavorite, setFavorite] = useState(verifyFavorites(idDetails));
 
   const handleClick = () => {
@@ -58,4 +58,5 @@ export default function Favorites({ alt, foodOrDrink }) {
 Favorites.propTypes = {
   alt: PropTypes.string.isRequired,
   foodOrDrink: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };

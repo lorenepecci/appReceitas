@@ -7,7 +7,6 @@ const Provider = ({ children }) => {
   const [favorites, setfavorite] = useState({});
   const [idDetails, setIDDetails] = useState('');
   const [FavoriteList, setList] = useState(getlocalStorage('favoriteRecipes'));
-
   const [userInfos, setUserInfos] = useState({
     email: '',
     password: '',

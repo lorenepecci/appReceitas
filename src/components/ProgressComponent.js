@@ -6,35 +6,40 @@ import setLocalStorage from '../helpers/createLocalStorage';
 import getlocalStorage from '../helpers/getLocalStore';
 import Favorites from './ButtonFavorites';
 import Share from './ButtonShare';
+import './inprogress.css';
 
 const copy = require('clipboard-copy');
 
-function ProgressComponent({ id, foodOrDrink }) {
+function ProgressComponent({ id, foodOrDrink, data }) {
+  console.log(data, 'resultado');
   const {
     dataDetailed,
     listOfIngredients,
     setListOfIngredients,
   } = useContext(Context);
-
+  const newData = data[0];
+  const strIngredient = 'strIngredient';
   const history = useHistory();
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [checkedState, setCheckedState] = useState([]);
-  const [ingredientsChecked, setingredientsChecked] = useState([]);
+  let getInProgessRecipes;
+  const [isId, setIsId] = useState(false);
+  const resposta = () => {
+    if (foodOrDrink === 'drinks') return getInProgessRecipes.cocktails[`${id}`];
+    return getInProgessRecipes.meals[`${id}`];
+  };
 
-  const newData = dataDetailed[0];
-
+  const [ingredientsChecked, setingredientsChecked] = useState(isId ? resposta() : []);
+  console.log(ingredientsChecked);
   const removeEmptyFilter = (obj) => Object
     .fromEntries(Object.entries(obj).filter(([, v]) => v != null && v !== ''));
-
   useEffect(() => {
-    const strIngredient = 'strIngredient';
     const filteredIng = Object.keys(newData).filter((key) => key.match(strIngredient))
       .reduce((obj, key) => {
         obj[key] = newData[key];
         return removeEmptyFilter(obj);
       }, {});
-    console.log(filteredIng);
     const strMeasure = 'strMeasure';
     const filteredMeasure = Object.keys(newData).filter((key) => key.match(strMeasure))
       .reduce((obj, key) => {
@@ -53,32 +58,25 @@ function ProgressComponent({ id, foodOrDrink }) {
     copy(`http://localhost:3000/${foodOrDrink}/${target.id}`);
     setIsLinkCopied(true);
   };
-
   const checkButton = (updatedCheckedState) => {
     const check = updatedCheckedState.every((value) => (value === true));
     setIsDisabled(!check);
   };
-
   useEffect(() => {
-    const getInProgessRecipes = getlocalStorage('inProgressRecipes');
     const mealsPrev = getInProgessRecipes
       ? getInProgessRecipes.meals : {};
     const cocktailsPrev = getInProgessRecipes
       ? getInProgessRecipes.cocktails : {};
     let newObj = {};
     if (foodOrDrink === 'foods') {
-      const mealsNew = {
-        [id]: ingredientsChecked,
-      };
+      const mealsNew = { [id]: ingredientsChecked };
       newObj = {
         meals: { ...mealsPrev, ...mealsNew },
         cocktails: { ...cocktailsPrev },
       };
     }
     if (foodOrDrink === 'drinks') {
-      const drinksNew = {
-        [id]: ingredientsChecked,
-      };
+      const drinksNew = { [id]: ingredientsChecked };
       newObj = {
         meals: { ...mealsPrev },
         cocktails: { ...cocktailsPrev, ...drinksNew },
@@ -86,35 +84,45 @@ function ProgressComponent({ id, foodOrDrink }) {
     }
     setLocalStorage('inProgressRecipes', newObj);
   }, [ingredientsChecked]);
-
-  const handleOnChange = (position) => {
-    const ingr = Object.values(listOfIngredients.ingredients)[position];
-    setingredientsChecked((prev) => prev.concat(ingr));
-    const updatedCheckedState = checkedState
-      .map((item, index) => (index === position ? !item : item));
-    console.log(checkedState);
-    setCheckedState(updatedCheckedState);
-    checkButton(updatedCheckedState);
-  };
-
   useEffect(() => {
     const getRecipes = getlocalStorage('doneRecipes');
     if (!getRecipes) {
       setLocalStorage('doneRecipes', []);
     }
-
-    const getInProgessRecipes = getlocalStorage('inProgressRecipes');
+    getInProgessRecipes = getlocalStorage('inProgressRecipes');
     if (!getInProgessRecipes) {
       setLocalStorage('inProgressRecipes', {
         meals: {},
         cocktails: {},
       });
+      getInProgessRecipes = getlocalStorage('inProgressRecipes');
+    } else {
+      setIsId(Object.keys(getInProgessRecipes.meals).some((key) => key === id)
+      || Object.keys(getInProgessRecipes.cocktails).some((key) => key === id));
     }
   }, []);
 
+  useEffect(() => {
+    const filteredIng = Object.keys(newData).filter((key) => key.match(strIngredient))
+      .reduce((obj, key) => {
+        obj[key] = newData[key];
+        return removeEmptyFilter(obj);
+      }, {});
+    setCheckedState([]);
+    const lengthOfObject = Object.keys(filteredIng).length;
+    for (let i = 0; i < lengthOfObject; i += 1) {
+      const ingr = Object.values(listOfIngredients.ingredients);
+      const findIng = ingredientsChecked.find((item) => item === ingr[i]);
+      if (findIng) {
+        setCheckedState((prev) => [...prev, true]);
+      } else {
+        setCheckedState((prev) => [...prev, false]);
+      }
+    }
+  }, [listOfIngredients, newData]);
+
   const pushDoneRecipes = () => {
     let newObjDone = {};
-    console.log(foodOrDrink);
     if (foodOrDrink === 'drinks') {
       newObjDone = ({
         id: dataDetailed[0].idDrink,
@@ -144,33 +152,51 @@ function ProgressComponent({ id, foodOrDrink }) {
     setLocalStorage('doneRecipes', newList);
     history.push('/done-recipes');
   };
+  const handleOnChange = (position) => {
+    const ingr = Object.values(listOfIngredients.ingredients)[position];
+    const updatedCheckedState = checkedState
+      .map((item, index) => (index === position ? !item : item));
+    setCheckedState(updatedCheckedState);
+    if (updatedCheckedState[position] === true) {
+      setingredientsChecked((prev) => prev.concat(ingr));
+    } else {
+      setingredientsChecked((prev) => prev.filter((i) => i !== ingr));
+    }
+    checkButton(updatedCheckedState);
+  };
+
   return (
     <div>
-      <img
-        data-testid="recipe-photo"
-        src={ newData.strMealThumb || newData.strDrinkThumb }
-        alt="Imagem da receita pronta"
-        width="200px"
-      />
       <div>
+        <img
+          data-testid="recipe-photo"
+          src={ foodOrDrink === 'foods' ? newData.strMealThumb
+            : newData.strDrinkThumb }
+          alt="Imagem da receita pronta"
+          width="200px"
+        />
+
         <h2 data-testid="recipe-title">
-          { newData.strMeal || newData.strDrink }
+          { foodOrDrink === 'foods' ? newData.strMeal : newData.strDrink }
         </h2>
         <button
           type="button"
           data-testid="share-btn"
           onClick={ handleClick }
         >
+
           <Share
-            id={ newData.idMeal || newData.idDrink }
+            id={ foodOrDrink === 'foods' ? newData.idMeal : newData.idDrink }
             alt="Icone de compartilhamento"
           />
         </button>
         <Favorites
           alt="Icone de favoritar"
           foodOrDrink={ foodOrDrink }
+          id={ id }
         />
       </div>
+
       {isLinkCopied ? <p>Link copied!</p> : null}
       <p data-testid="recipe-category">
         { foodOrDrink === 'foods' ? newData.strCategory : newData.strAlcoholic }
@@ -182,14 +208,21 @@ function ProgressComponent({ id, foodOrDrink }) {
             {Object.values(listOfIngredients.ingredients).map((value, index) => (
               <li key={ index } data-testid={ `${index}-ingredient-step` }>
                 <div>
-                  <input
-                    type="checkbox"
-                    id={ index }
-                    checked={ checkedState[index] }
-                    onChange={ () => handleOnChange(index) }
-                  />
-                  <label htmlFor={ value }>
-                    {`${value} - ${Object.values(listOfIngredients.measure)[index]}`}
+                  <label
+                    className="riscar"
+                    htmlFor={ value }
+                  >
+                    <input
+                      type="checkbox"
+                      id={ index }
+                      checked={ checkedState[index] }
+                      onChange={ () => handleOnChange(index) }
+                    />
+                    <span
+                      className="tagp"
+                    >
+                      { `${value} - ${Object.values(listOfIngredients.measure)[index]}` }
+                    </span>
                   </label>
                 </div>
               </li>
@@ -197,29 +230,24 @@ function ProgressComponent({ id, foodOrDrink }) {
           </ul>
         </div>
       </div>
-      <div>
-        <h3>Instructions</h3>
-        <p data-testid="instructions">
-          { newData.strInstructions }
-        </p>
-      </div>
-      <div>
-        <button
-          data-testid="finish-recipe-btn"
-          type="button"
-          onClick={ pushDoneRecipes }
-          disabled={ isDisabled }
-        >
-          Finish Recipe
-        </button>
-      </div>
+      <h3>Instructions</h3>
+      <p data-testid="instructions">
+        { newData.strInstructions }
+      </p>
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        onClick={ pushDoneRecipes }
+        disabled={ isDisabled }
+      >
+        Finish Recipe
+      </button>
     </div>
   );
 }
-
 ProgressComponent.propTypes = {
   foodOrDrink: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
-
 export default ProgressComponent;
