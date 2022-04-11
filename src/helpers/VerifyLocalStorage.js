@@ -10,13 +10,13 @@ export const InProgressRecipesStore = (type, id) => {
   let results;
   if (type === 'drinks') {
     const inProgressMeals = getlocalStorage('inProgressRecipes');
-    if (inProgressMeals.cocktails) {
+    if (inProgressMeals) {
       const { cocktails } = inProgressMeals;
       results = Object.prototype.hasOwnProperty.call(cocktails, id);
     }
   } else if (type === 'foods') {
     const inProgressMeals = getlocalStorage('inProgressRecipes');
-    if (inProgressMeals.meals) {
+    if (inProgressMeals) {
       const { meals } = inProgressMeals;
       results = Object.prototype.hasOwnProperty.call(meals, id);
     }

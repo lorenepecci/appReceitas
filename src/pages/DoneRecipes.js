@@ -105,6 +105,9 @@ export default function DoneRecipes() {
               onClick={ handleClick }
             />
             <p />
+            <p
+              data-testid={ `${index}-Pasta-tag` }
+            />
           </div>
         ))}
       </div>

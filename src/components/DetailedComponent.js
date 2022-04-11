@@ -7,13 +7,12 @@ import Share from './ButtonShare';
 
 const copy = require('clipboard-copy');
 
-function DetailedComponent({ foodOrDrink }) {
+function DetailedComponent({ foodOrDrink, id }) {
   const {
     dataDetailed,
     listOfIngredients,
   } = useContext(Context);
   const newData = dataDetailed[0];
-  console.log(newData);
   const [isLinkCopied, setIsLinkCopied] = useState(false);
 
   const handleClick = () => {
@@ -47,6 +46,7 @@ function DetailedComponent({ foodOrDrink }) {
           <Favorites
             alt="Icone de favoritar"
             foodOrDrink={ foodOrDrink }
+            id={ id }
           />
         </div>
         { isLinkCopied ? <p>Link copied!</p> : null }
@@ -80,7 +80,7 @@ function DetailedComponent({ foodOrDrink }) {
 
 DetailedComponent.propTypes = {
   foodOrDrink: PropTypes.string.isRequired,
-/*   newData: PropTypes.objectOf(PropTypes.string).isRequired, */
+  id: PropTypes.string.isRequired,
 };
 
 export default DetailedComponent;

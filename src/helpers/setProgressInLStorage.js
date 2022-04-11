@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import Context from '../context/Context';
 
 function SetProgressInLStorage(type, id, ing) {
@@ -8,10 +8,6 @@ function SetProgressInLStorage(type, id, ing) {
     cocktailsList,
     setCocktailsList,
   } = useContext(Context);
-
-  useEffect(() => {
-    console.log('oi');
-  }, []);
 
   let inProgressRecipes = {
     meals: {},

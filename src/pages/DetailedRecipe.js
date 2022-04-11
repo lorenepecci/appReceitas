@@ -11,7 +11,6 @@ import { getByType, getRecommendations } from '../services/IDApi';
 const LIMITED_OPTIONS = 5;
 
 export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } }) {
-  console.log(id, foodOrDrink);
   const [optionsRecommendations, setRecommendations] = useState([]);
   const {
     dataDetailed,
@@ -27,14 +26,12 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
     async function fetchData() {
       const response = await getByType(id, foodOrDrink);
       const results = response.meals ? response.meals : response.drinks;
-      console.log(results);
       setDataDetailed(results);
       setGetResult(true);
     }
     const fetchRecommendations = async () => {
       const response = await getRecommendations(foodOrDrink);
       const results = response.meals ? response.meals : response.drinks;
-      console.log(results);
       setRecommendations(results.filter((_item, index) => index <= LIMITED_OPTIONS));
     };
     fetchData();
@@ -53,7 +50,7 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
         ? (
           <DetailedComponent
             foodOrDrink={ foodOrDrink }
-            newData={ dataDetailed[0] }
+            id={ id }
           />
         )
         : <p>Carregando...</p> }

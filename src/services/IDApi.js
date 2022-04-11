@@ -19,10 +19,10 @@ export const getByType = async (id, foodOrDrink) => {
 export const getRecommendations = async (foodOrDrink) => {
   let recommendations;
   try {
-    if (foodOrDrink === 'drinks') {
+    if (foodOrDrink === 'foods') {
       const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       recommendations = response.json();
-    } else if (foodOrDrink === 'foods') {
+    } else if (foodOrDrink === 'drinks') {
       const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
       recommendations = response.json();
     }
