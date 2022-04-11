@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect, useContext } from 'react';
-import { getByType, getRecommendations } from '../services/IDApi';
+import React, { useContext, useEffect, useState } from 'react';
+import Button from '../components/Button';
 import CardDetails from '../components/CardDetails';
 import DetailedComponent from '../components/DetailedComponent';
-import { DoneRecipesStore, InProgressRecipesStore } from '../helpers/VerifyLocalStorage';
-import Context from '../context/Context';
 import EmbededVideo from '../components/EmbededVideo';
-import Button from '../components/Button';
+import Context from '../context/Context';
+import { DoneRecipesStore, InProgressRecipesStore } from '../helpers/VerifyLocalStorage';
+import { getByType, getRecommendations } from '../services/IDApi';
 
 const LIMITED_OPTIONS = 5;
 
