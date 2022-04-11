@@ -5,6 +5,8 @@ import Favorites from '../components/ButtonFavorites';
 import Share from '../components/ButtonShare';
 import ProgressComponent from '../components/ProgressComponent';
 import Context from '../context/Context';
+import setLocalStorage from '../helpers/createLocalStorage';
+import getlocalStorage from '../helpers/getLocalStore';
 import pushDoneRecipesFunc from '../helpers/pushDoneRecipes';
 import { getByType } from '../services/IDApi';
 
@@ -40,7 +42,7 @@ export default function InProgress({ match: { params: { id, foodOrDrink } } }) {
   };
 
   const pushDoneRecipes = () => {
-    pushDoneRecipesFunc(foodOrDrink, dataDetailed);
+    const newObjDone = pushDoneRecipesFunc(foodOrDrink, dataDetailed);
     const getRecipes = getlocalStorage('doneRecipes');
     const newList = [...getRecipes, newObjDone];
     setLocalStorage('doneRecipes', newList);

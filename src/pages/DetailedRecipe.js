@@ -11,13 +11,14 @@ import { getByType, getRecommendations } from '../services/IDApi';
 const LIMITED_OPTIONS = 5;
 
 export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } }) {
+  console.log(id, foodOrDrink);
   const [optionsRecommendations, setRecommendations] = useState([]);
   const {
     dataDetailed,
     setDataDetailed,
-    getResult,
-    setGetResult,
     setIDDetails,
+    setGetResult,
+    getResult,
   } = useContext(Context);
   const inProgressRecipes = InProgressRecipesStore(foodOrDrink, id)
     ? 'Continue Recipe' : 'Start Recipe';
@@ -26,18 +27,21 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
     async function fetchData() {
       const response = await getByType(id, foodOrDrink);
       const results = response.meals ? response.meals : response.drinks;
+      console.log(results);
       setDataDetailed(results);
       setGetResult(true);
     }
     const fetchRecommendations = async () => {
       const response = await getRecommendations(foodOrDrink);
       const results = response.meals ? response.meals : response.drinks;
+      console.log(results);
       setRecommendations(results.filter((_item, index) => index <= LIMITED_OPTIONS));
     };
     fetchData();
     setIDDetails(id);
     fetchRecommendations();
-  }, [foodOrDrink, id, setDataDetailed, setGetResult, setIDDetails]);
+  }, []);
+
   return (
     <div>
       <span className="title-DetailedRecipe">
@@ -46,9 +50,15 @@ export default function DetailedRecipe({ match: { params: { id, foodOrDrink } } 
         </h1>
       </span>
       {getResult
-        ? <DetailedComponent foodOrDrink={ foodOrDrink } /> : <p>Carregando...</p>}
-      {getResult && foodOrDrink === 'foods'
-        ? <EmbededVideo embedLink={ dataDetailed[0].strYoutube } /> : null}
+        ? (
+          <DetailedComponent
+            foodOrDrink={ foodOrDrink }
+            newData={ dataDetailed[0] }
+          />
+        )
+        : <p>Carregando...</p> }
+      {(getResult && foodOrDrink === 'foods')
+        ? <EmbededVideo embedLink={ dataDetailed[0].strYoutube } /> : null }
       <ul className="last-receitas pre_con">
         {optionsRecommendations.map((options, index) => (
           <li key={ index } className="pre-card">

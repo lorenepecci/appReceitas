@@ -25,9 +25,9 @@ export default function ProgressCard({ checkedState, index,
   );
 }
 ProgressCard.propTypes = {
-  checkedState: PropTypes.arrayOf(PropTypes.bool).isRequired,
-  index: PropTypes.string.isRequired,
+  checkedState: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
   measure: PropTypes.objectOf(PropTypes.string).isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   handleOnChange: PropTypes.func.isRequired,
 };

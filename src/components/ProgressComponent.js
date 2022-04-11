@@ -121,17 +121,18 @@ function ProgressComponent({ id, foodOrDrink, checkButton }) {
       <h3>Ingredients</h3>
       <div>
         <ul>
-          {Object.values(listOfIngredients.ingredients).map((value, index) => (
-            <li key={ index } data-testid={ `${index}-ingredient-step` }>
-              <ProgressCard
-                checkedState={ checkedState[index] }
-                index={ index }
-                measure={ listOfIngredients.measure }
-                value={ value }
-                handleOnChange={ handleOnChange }
-              />
-            </li>
-          ))}
+          { checkedState.length
+            && Object.values(listOfIngredients.ingredients).map((value, index) => (
+              <li key={ index } data-testid={ `${index}-ingredient-step` }>
+                <ProgressCard
+                  checkedState={ checkedState[index] }
+                  index={ index }
+                  measure={ listOfIngredients.measure }
+                  value={ value }
+                  handleOnChange={ handleOnChange }
+                />
+              </li>
+            ))}
         </ul>
       </div>
     </div>

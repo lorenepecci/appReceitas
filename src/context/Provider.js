@@ -4,8 +4,6 @@ import getlocalStorage from '../helpers/getLocalStore';
 import Context from './Context';
 
 const Provider = ({ children }) => {
-  /* const [filteredIng, setFilteredIng] = useState([]);
-  const [filteredMeasure, setfilteredMeasure] = useState([]); */
   const [favorites, setfavorite] = useState({});
   const [idDetails, setIDDetails] = useState('');
   const [FavoriteList, setList] = useState(getlocalStorage('favoriteRecipes'));
@@ -35,7 +33,6 @@ const Provider = ({ children }) => {
     .fromEntries(Object.entries(obj).filter(([, v]) => v != null && v !== ''));
 
   useEffect(() => {
-    console.log(dataDetailed, 'dataProvider');
     const strIngredient = 'strIngredient';
     const filteredIng = dataDetailed.length ? Object.keys(dataDetailed[0])
       .filter((key) => key.match(strIngredient))
@@ -43,7 +40,6 @@ const Provider = ({ children }) => {
         obj[key] = dataDetailed[0][key];
         return removeEmptyFilter(obj);
       }, {}) : {};
-    console.log(filteredIng);
     const strMeasure = 'strMeasure';
     const filteredMeasure = dataDetailed.length ? Object.keys(dataDetailed[0])
       .filter((key) => key.match(strMeasure))
@@ -52,10 +48,6 @@ const Provider = ({ children }) => {
         return removeEmptyFilter(obj);
       }, {}) : {};
     setListOfIngredients({
-      ingredients: filteredIng,
-      measure: filteredMeasure,
-    });
-    console.log({
       ingredients: filteredIng,
       measure: filteredMeasure,
     });
