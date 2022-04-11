@@ -7,12 +7,12 @@ export default function ProgressCard({ checkedState, index,
     <div>
       <label
         className="riscar"
-        htmlFor={ value }
+        htmlFor={ index }
       >
         <input
           type="checkbox"
           id={ index }
-          checked={ checkedState[index] }
+          checked={ checkedState }
           onChange={ () => handleOnChange(index) }
         />
         <span

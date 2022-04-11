@@ -14,20 +14,17 @@ function ProgressComponent({ id, foodOrDrink, checkButton }) {
     new Array(Object.keys(listOfIngredients.ingredients).length)
       .fill(false),
   );
-  console.log(checkedState, 'checkState');
   const [getInProgessRecipes, setGetInProgressRecipes] = useState(
     () => getlocalStorage('inProgressRecipes'),
   );
   const [ingredientsChecked, setingredientsChecked] = useState([]);
-  console.log(ingredientsChecked, 'ingredientsChecked');
 
   useEffect(() => {
     const getRecipes = getlocalStorage('doneRecipes');
     if (!getRecipes) {
       setLocalStorage('doneRecipes', []);
     }
-    const getLSInProgressRecipes = getInProgessRecipes;
-    if (!getLSInProgressRecipes) {
+    if (!getInProgessRecipes) {
       setGetInProgressRecipes({
         meals: {},
         cocktails: {},
@@ -36,8 +33,11 @@ function ProgressComponent({ id, foodOrDrink, checkButton }) {
         meals: {},
         cocktails: {},
       });
-    } else {
-      console.log(getInProgessRecipes, 'localSTORAGE');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (getInProgessRecipes) {
       let listOfLocalStorage = [];
       setCheckedState([]);
       if (Object.keys(getInProgessRecipes.meals).some((key) => key === id)) {
@@ -57,26 +57,47 @@ function ProgressComponent({ id, foodOrDrink, checkButton }) {
         }
       }
     }
-    console.log(checkedState);
   }, [listOfIngredients]);
 
   useEffect(() => {
     if (ingredientsChecked.length) {
+      const mealsPrev = getInProgessRecipes.meals;
+      const cocktailsPrev = getInProgessRecipes.cocktails;
       let newObj = {};
-      const mealsPre = getInProgessRecipes.meals;
-      const cocktailsPre = getInProgessRecipes.cocktails;
       if (foodOrDrink === 'foods') {
         const mealsNew = { [id]: ingredientsChecked };
         newObj = {
-          meals: { ...mealsPre, ...mealsNew },
-          cocktails: { ...cocktailsPre },
+          meals: { ...mealsPrev, ...mealsNew },
+          cocktails: { ...cocktailsPrev },
         };
       }
       if (foodOrDrink === 'drinks') {
         const drinksNew = { [id]: ingredientsChecked };
         newObj = {
-          meals: { ...mealsPre },
-          cocktails: { ...cocktailsPre, ...drinksNew },
+          meals: { ...mealsPrev },
+          cocktails: { ...cocktailsPrev, ...drinksNew },
+        };
+      }
+      setLocalStorage('inProgressRecipes', newObj);
+    } else if (getInProgessRecipes) {
+      const mealsPrev = getInProgessRecipes.meals;
+      const cocktailsPrev = getInProgessRecipes.cocktails;
+      let newObj = {};
+      if (foodOrDrink === 'drinks') {
+        const novo = Object.keys(cocktailsPrev)
+          .filter((key) => key !== id)
+          .reduce((cur, key) => Object.assign(cur, { [key]: cocktailsPrev[key] }), {});
+        newObj = {
+          meals: { ...mealsPrev },
+          cocktails: { ...novo },
+        };
+      } else {
+        const novo = Object.keys(mealsPrev)
+          .filter((key) => key !== id)
+          .reduce((cur, key) => Object.assign(cur, { [key]: mealsPrev[key] }), {});
+        newObj = {
+          meals: { ...novo },
+          cocktails: { ...cocktailsPrev },
         };
       }
       setLocalStorage('inProgressRecipes', newObj);
@@ -92,7 +113,6 @@ function ProgressComponent({ id, foodOrDrink, checkButton }) {
       setingredientsChecked((prev) => prev.concat(ingr));
     } else {
       setingredientsChecked((prev) => prev.filter((i) => i !== ingr));
-      console.log('isso');
     }
     checkButton(updatedCheckedState);
   };
@@ -104,7 +124,7 @@ function ProgressComponent({ id, foodOrDrink, checkButton }) {
           {Object.values(listOfIngredients.ingredients).map((value, index) => (
             <li key={ index } data-testid={ `${index}-ingredient-step` }>
               <ProgressCard
-                checkedState={ checkedState }
+                checkedState={ checkedState[index] }
                 index={ index }
                 measure={ listOfIngredients.measure }
                 value={ value }
