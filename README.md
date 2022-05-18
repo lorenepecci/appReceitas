@@ -14,24 +14,17 @@ Nesse projeto, utilizou-se:
 
 ## Instalando Dependências
 
-> Backend
-```bash
-npm install
-``` 
-``` 
+- npm install
+ 
+ 
 ## Executando aplicação
 
-  ```
-  cd appReceitas && npm start
-  ```
-
+- cd appReceitas 
+- npm start
+  
 ## Executando Testes
 
-* Para rodar todos os testes:
-
-  ```
-    npm test
-  ```
+ - npm test
 
 ## Autores
 
