@@ -16,25 +16,13 @@ Nesse projeto, utilizou-se:
 
 > Backend
 ```bash
-cd api/ 
 npm install
 ``` 
-> Frontend
-```bash
-cd src/
-npm install
 ``` 
 ## Executando aplicação
 
-* Para rodar o back-end:
-
   ```
-  cd api/ && npm start
-  ```
-* Para rodar o front-end:
-
-  ```
-    cd src/ && npm start
+  cd appReceitas && npm start
   ```
 
 ## Executando Testes
