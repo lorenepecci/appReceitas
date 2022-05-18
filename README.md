@@ -5,19 +5,21 @@
 ## Instruções para rodar:
 
 1- Clone o repositório
+
 2- Entre na pasta do repositório que você acabou de clonar
+
 3- Instale as dependências e inicialize o projeto
-Instale as dependências:
-npm install
+Instale as dependências: npm install
+
 4- Inicialize o projeto:
 npm start (uma nova página deve abrir no seu navegador)
 
 ## Autores
 
-Iara Pedrosa
-Kesley Muniz
-Patrick Bastos  
- Lorene Pecci
+- Iara Pedrosa
+- Kesley Muniz
+- Patrick Bastos  
+- Lorene Pecci
 
 # Habilidades
 
