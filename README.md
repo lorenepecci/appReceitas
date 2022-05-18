@@ -1,6 +1,16 @@
 # Aplicativo de Receitas e Bebidas
 
+## Contexto
 ### Este projeto é o desenvolvimento de uma aplicação em React que usou Context API como ferramenta de manipulação de estado.
+
+# Tecnologias Usadas
+
+Nesse projeto, utilizou-se:
+- a Context API do _React_ para gerenciar estado
+- o _React Hook useState_
+- o _React Hook useContext_
+- o _React Hook useEffect_
+- Criar Hooks customizados
 
 ## Instruções para rodar:
 
@@ -20,16 +30,6 @@ npm start (uma nova página deve abrir no seu navegador)
 - Kesley Muniz
 - Patrick Bastos  
 - Lorene Pecci
-
-# Habilidades
-
-Nesse projeto, utilizou-se:
-
-- a Context API do _React_ para gerenciar estado
-- o _React Hook useState_
-- o _React Hook useContext_
-- o _React Hook useEffect_
-- Criar Hooks customizados
 
 ## APIs utilizadas
 
