@@ -12,17 +12,38 @@ Nesse projeto, utilizou-se:
 - o _React Hook useEffect_
 - Criar Hooks customizados
 
-## Instruções para rodar:
+## Instalando Dependências
 
-1- Clone o repositório
+> Backend
+```bash
+cd api/ 
+npm install
+``` 
+> Frontend
+```bash
+cd src/
+npm install
+``` 
+## Executando aplicação
 
-2- Entre na pasta do repositório que você acabou de clonar
+* Para rodar o back-end:
 
-3- Instale as dependências e inicialize o projeto
-Instale as dependências: npm install
+  ```
+  cd api/ && npm start
+  ```
+* Para rodar o front-end:
 
-4- Inicialize o projeto:
-npm start (uma nova página deve abrir no seu navegador)
+  ```
+    cd src/ && npm start
+  ```
+
+## Executando Testes
+
+* Para rodar todos os testes:
+
+  ```
+    npm test
+  ```
 
 ## Autores
 
