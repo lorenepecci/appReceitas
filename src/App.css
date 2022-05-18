@@ -80,6 +80,16 @@ li {
   text-align: -webkit-match-parent;
 }
 
+.homepage {
+  background-color: rgb(202, 150, 17);
+  margin: 10px 100px;
+  padding: 5vh 55vh;
+}
+
+.mapcards {
+  margin: 10px 10px;
+}
+
 footer {
   align-items: center;
   background-color: #c4c4c4;
@@ -87,7 +97,7 @@ footer {
   display: flex;
   justify-content: space-between;
   position: fixed;
-  width: 360px;
+  width: 200vh;
 }
 
 button img {
@@ -145,13 +155,12 @@ button {
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
-  font-family: Montserrat , sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 3em;
   font-weight: 900;
 }
 
 @keyframes shake {
-
   0% {
     transform: rotate(5deg);
   }
@@ -166,7 +175,6 @@ button {
 }
 
 @keyframes clink {
-
   0% {
     transform: rotate(-10deg);
   }

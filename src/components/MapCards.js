@@ -6,7 +6,7 @@ export default function MapCards({ list, foodOrDrink }) {
   return (
     <div className="container-items">
       { list.map((item, index) => (
-        <div key={ index }>
+        <div key={ index } className='mapcards'>
           <Card
             name={ item.strMeal || item.strDrink }
             index={ index }

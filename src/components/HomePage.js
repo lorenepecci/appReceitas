@@ -125,12 +125,14 @@ export default function HomePage({ foodOrDrink }) {
                 </button>
               ))}
       </div>
+      <div className="homepage">
       { foodCards.length && (
         <MapCards list={ foodCards } foodOrDrink={ foodOrDrink } />
       ) }
       { drinkCards.length && (
         <MapCards list={ drinkCards } foodOrDrink={ foodOrDrink } />
-      ) }
+        ) }
+      </div>
     </div>
   );
 }
