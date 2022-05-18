@@ -34,8 +34,6 @@ describe('page NationalFoods', () => {
     const { history } = renderWithRouter(<NationalFoods />);
     const button = await screen.findByTestId('0-recipe-card');
     userEvent.click(button);
-    history.push('/foods/52977');
-    /* const text = await screen.findByText(/DetailedRecipe/i);
-    expect(text).toBeInTheDocument(); */
+    history.push( '/foods/52977' );
   });
 });

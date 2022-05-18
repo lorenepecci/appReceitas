@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
@@ -126,10 +125,10 @@ export default function HomePage({ foodOrDrink }) {
               ))}
       </div>
       <div className="homepage">
-      { foodCards.length && (
+      { foodCards && foodCards.length && (
         <MapCards list={ foodCards } foodOrDrink={ foodOrDrink } />
       ) }
-      { drinkCards.length && (
+      {drinkCards && drinkCards.length && (
         <MapCards list={ drinkCards } foodOrDrink={ foodOrDrink } />
         ) }
       </div>
